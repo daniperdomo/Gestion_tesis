@@ -1,33 +1,33 @@
 const express = require("express");
+const path = require("path");
 const app = express();
+const cors = require("cors");
+const port = 8080;
+const mysql = require("mysql");
 
-const cors = require("cors")
 const corsOptions = {
     origin: ["http://localhost:5173"],
-}
+};
 
-const mysql = require("mysql")
+app.use(cors(corsOptions));
+app.use(express.json());
+
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "gestion_tesis"
-})
+    database: "gestion_tesis",
+});
 
-app.use(cors(corsOptions))
 
-app.get("/api", (req, res) => {
-    res.json({fruits: ["pineapple", "avocado", "mora"]})
-})
+app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.get("/especialidades", (req, res) => {
-        const sql = "select * from especialidades";
-        db.query(sql, (error, data) => {
-            if (error) return res.json(error);
-            return res.json(data);
-        });
-    })
 
-app.listen(8080, () => {
-    console.log("server started on port 8080")
-})
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+// Iniciar el servidor
+app.listen(port, () => {
+    console.log("Server started on port ", port);
+});
