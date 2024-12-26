@@ -1,4 +1,3 @@
--- Active: 1735138874455@@127.0.0.1@3306@mysql
 create database Gestion_Tesis
 
 create table Especialidades(
