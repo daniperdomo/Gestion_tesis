@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import Error404 from '../pages/Error404';
+import Error404 from './Error404';
 
 const RegisterForm = () => {
     const { type } = useParams();

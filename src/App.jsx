@@ -4,7 +4,7 @@ import Home from './pages/home';
 import Versa from './pages/versa';
 import Register from './pages/Register';
 import Login from './pages/Login';
-import RegisterForm from './components/RegisterForm';
+import RegisterForm from './pages/RegisterForm';
 import Header from './components/header';
 import Footer from './components/footer';
 
