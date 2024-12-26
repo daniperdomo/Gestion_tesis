@@ -1,7 +1,7 @@
-// EspecialidadForm.jsx
 import React, { useState } from 'react';
+import '../styles/especialidadForm.css';
 
-const Especialidad = () => {
+const EspecialidadForm = () => {
     // Estado para almacenar el valor del nombre de la especialidad
     const [nombre, setNombre] = useState('');
 
@@ -18,15 +18,23 @@ const Especialidad = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Nombre de la especialidad:
-                <input type="text" value={nombre} onChange={handleNombreChange} />
-            </label>
-            <br />
-            <button type="submit">Registrar Especialidad</button>
-        </form>
+        <div className="form-container">
+            <form className="form" onSubmit={handleSubmit}>
+                <label className="form-label">
+                    Nombre de la especialidad:
+                </label>
+                <input 
+                    type="text" 
+                    value={nombre} 
+                    onChange={handleNombreChange} 
+                    className="form-input" 
+                />
+                <button type="submit" className="form-button">
+                    Registrar Especialidad
+                </button>
+            </form>
+        </div>
     );
 };
 
-export default Especialidad;
+export default EspecialidadForm;
