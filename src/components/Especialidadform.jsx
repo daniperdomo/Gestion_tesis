@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/especialidadForm.css';
+import '../styles/estiloForm.css';
 
 const EspecialidadForm = () => {
     // Estado para almacenar el valor del nombre de la especialidad

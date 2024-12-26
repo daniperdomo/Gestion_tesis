@@ -1,3 +1,4 @@
+/* Estilos CSS actualizados para EspecialidadForm */
 
 .form-container {
     max-width: 400px;
@@ -23,6 +24,8 @@
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
+    width: 100%; /* Ajusta el ancho al 100% para ocupar todo el espacio disponible */
+    box-sizing: border-box; /* Incluye el padding y border en el ancho del input */
 }
 
 .form-button {
