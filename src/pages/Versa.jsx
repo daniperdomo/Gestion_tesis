@@ -9,7 +9,7 @@ const Versa = () => {
     return (
         <>
             <Header />
-            <h1>{title ? title : 'Hello from Versa'}</h1>
+            <h1 className="text-4xl font-bold mb-4">{title ? title : 'Hello from Versa'}</h1>
             <Footer />
         </>
     );
