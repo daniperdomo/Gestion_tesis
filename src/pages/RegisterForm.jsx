@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Error404 from './Error404';
-import Especialidad from '../src/components/especialidadform';
+import Especialidadform from '../components/especialidadform';
 
 const RegisterForm = () => {
     const { type } = useParams();
@@ -14,7 +14,7 @@ const RegisterForm = () => {
                 <div className="container mx-auto p-4">
                     <h1 className="text-center text-2xl font-bold mb-6">Registro para: {type}</h1>
                     {type === 'especialidad' ? (
-                        <Especialidad />
+                        <Especialidadform />
                     ) : (
                         <p className="text-center">Formulario para registrar un {type}.</p>
                     )}
