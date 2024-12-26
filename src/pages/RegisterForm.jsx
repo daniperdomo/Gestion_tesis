@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Error404 from './Error404';
+import Especialidad from '../components/especialidad';
 
 const RegisterForm = () => {
     const { type } = useParams();
@@ -12,7 +13,11 @@ const RegisterForm = () => {
             {isValidType ? (
                 <div className="container mx-auto p-4">
                     <h1 className="text-center text-2xl font-bold mb-6">Registro para: {type}</h1>
-                    <p className="text-center">Formulario para registrar un {type}.</p>
+                    {type === 'especialidad' ? (
+                        <Especialidad />
+                    ) : (
+                        <p className="text-center">Formulario para registrar un {type}.</p>
+                    )}
                 </div>
             ) : (
                 <Error404 />
