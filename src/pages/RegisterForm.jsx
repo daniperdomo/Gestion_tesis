@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Error404 from './Error404';
-import Especialidad from '../components/especialidad';
+import Especialidad from '../src/components/especialidadform';
 
 const RegisterForm = () => {
     const { type } = useParams();
