@@ -35,6 +35,7 @@ const ConsejoEscuelaForm = () => {
                     value={nroConsejo} 
                     onChange={handleNroConsejoChange} 
                     className="form-input" 
+                    maxLength={30}
                 />
                 <label className="form-label">
                     Fecha de Consejo:

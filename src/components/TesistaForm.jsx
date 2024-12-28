@@ -42,23 +42,23 @@ const TesistaForm = () => {
             <form className="form" onSubmit={handleSubmit}>
                 <label className="form-label">
                     Cédula:
-                    <input type="text" value={cedula} onChange={handleCedulaChange} className="form-input" />
+                    <input type="text" value={cedula} onChange={handleCedulaChange} className="form-input" maxLength={10}/>
                 </label>
                 <label className="form-label">
                     Nombre:
-                    <input type="text" value={nombre} onChange={handleNombreChange} className="form-input" />
+                    <input type="text" value={nombre} onChange={handleNombreChange} className="form-input" maxLength={70}/>
                 </label>
                 <label className="form-label">
                     Teléfono:
-                    <input type="tel" value={telefono} onChange={handleTelefonoChange} className="form-input" />
+                    <input type="text" value={telefono} onChange={handleTelefonoChange} className="form-input" maxLength={20}/>
                 </label>
                 <label className="form-label">
                     Correo UCAB:
-                    <input type="email" value={correoUCAB} onChange={handleCorreoUCABChange} className="form-input" />
+                    <input type="text" value={correoUCAB} onChange={handleCorreoUCABChange} className="form-input" maxLength={30}/>
                 </label>
                 <label className="form-label">
                     Correo Particular:
-                    <input type="email" value={correoParticular} onChange={handleCorreoParticularChange} className="form-input" />
+                    <input type="text" value={correoParticular} onChange={handleCorreoParticularChange} className="form-input" maxLength={30}/>
                 </label>
                 <button type="submit" className="form-button">
                     Registrar Tesista

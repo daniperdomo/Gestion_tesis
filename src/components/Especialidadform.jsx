@@ -27,7 +27,8 @@ const EspecialidadForm = () => {
                     type="text" 
                     value={nombre} 
                     onChange={handleNombreChange} 
-                    className="form-input" 
+                    className="form-input"
+                    maxLength={30} 
                 />
                 <button type="submit" className="form-button">
                     Registrar Especialidad

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Pantalla_inicial from './pages/Pantalla_inicial';
 import Inicio_sesion from './pages/Inicio_sesion';
 import Registro_usuario from './pages/Registro_usuario';
-import Versa from './pages/versa';
 import Register from './pages/Register';
 import RegisterForm from './pages/RegisterForm';
 import Inicio_Sesion from './pages/Inicio_sesion';
@@ -17,7 +16,6 @@ function App() {
                 <Route path='/inicio_sesion' element={<Inicio_Sesion />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/register/:type' element={<RegisterForm />} />
-                {/* <Route path='/:title' element={<Versa />} /> */}
                 <Route path='*' element={<Pantalla_inicial />} />
             </Routes>
         </Router>

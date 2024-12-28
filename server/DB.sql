@@ -1,147 +1,146 @@
 create database Gestion_Tesis
 
-create table Especialidades(
-    codigo_esp int AUTO_INCREMENT PRIMARY KEY,
-    nombre_esp VARCHAR(30)
+CREATE TABLE Especialidades (
+    codigo_esp INT IDENTITY(1,1) PRIMARY KEY,
+    nombre_esp VARCHAR(30) NOT NULL
 );
 
-create table Consejos_escuela(
-    nro_consejo int AUTO_INCREMENT primary key,
-    fecha_consejo DATE
+CREATE TABLE Consejos_escuela (
+    nro_consejo VARCHAR(30) PRIMARY KEY,
+    fecha_consejo DATE NOT NULL
 );
 
-create table Tesistas(
-    cedula_tesista varchar(10) primary key,
-    nombre_tesista varchar (70),
-    correo_ucab varchar(30),
-    correo_particular varchar(30),
-    telefono varchar(20)
+CREATE TABLE Tesistas (
+    cedula_tesista VARCHAR(10) PRIMARY KEY,
+    nombre_tesista VARCHAR(70) NOT NULL,
+    correo_ucab VARCHAR(30) NOT NULL,
+    correo_particular VARCHAR(30) NOT NULL,
+    telefono VARCHAR(20)
 );
 
-create table Criterios_revision(
-    codigo_cr int AUTO_INCREMENT primary key,
-    nombre_cr varchar(30),
-    tipo enum('I', 'E'),
-    puntaje_max int
+CREATE TABLE Criterios_revision (
+    codigo_cr INT IDENTITY(1,1) PRIMARY KEY,
+    nombre_cr VARCHAR(30) NOT NULL,
+    tipo VARCHAR(1) NOT NULL CHECK (tipo IN ('I', 'E')),
+    puntaje_max INT NOT NULL
 );
 
-create table Criterios_evaluacion(
-    codigo_ce int AUTO_INCREMENT primary key,
-    nombre_ce varchar(30),
-    tipo enum('I', 'E'),
-    puntaje_max int
+CREATE TABLE Criterios_evaluacion (
+    codigo_ce INT IDENTITY(1,1) PRIMARY KEY,
+    nombre_ce VARCHAR(30) NOT NULL,
+    tipo VARCHAR(1) NOT NULL CHECK (tipo IN ('I', 'E')),
+    puntaje_max INT NOT NULL
 );
 
-create table Tutores_emp(
-    cedula_tutorEmp varchar(10) primary key,
-    nombre_tutorEmp varchar(70),
-    telefono varchar(20),
-    empresa varchar(30)
+CREATE TABLE Tutores_emp (
+    cedula_tutorEmp VARCHAR(10) PRIMARY KEY,
+    nombre_tutorEmp VARCHAR(70) NOT NULL,
+    telefono VARCHAR(20),
+    empresa VARCHAR(30) NOT NULL
 );
 
-create table Profesores(
-    cedula_profesor varchar(10) primary key,
-    nombre_profesor varchar(70),
-    correo varchar(30),
-    telefono varchar(20)
+CREATE TABLE Profesores (
+    cedula_profesor VARCHAR(10) PRIMARY KEY,
+    nombre_profesor VARCHAR(70) NOT NULL,
+    correo VARCHAR(30) NOT NULL,
+    telefono VARCHAR(20)
 );
 
-create table Externos(
-    cedula_profesor varchar(10) primary key,
-    institucion varchar(30),
-    Foreign Key (cedula_profesor) REFERENCES Profesores(cedula_profesor)
+CREATE TABLE Externos (
+    cedula_profesor VARCHAR(10) PRIMARY KEY,
+    institucion VARCHAR(30) NOT NULL,
+    FOREIGN KEY (cedula_profesor) REFERENCES Profesores(cedula_profesor)
 );
 
-create table Internos(
-    cedula_profesor varchar(10) primary key,
-    direccion varchar(50),
-    Foreign Key (cedula_profesor) REFERENCES Profesores(cedula_profesor)
+CREATE TABLE Internos (
+    cedula_profesor VARCHAR(10) PRIMARY KEY,
+    direccion VARCHAR(50),
+    FOREIGN KEY (cedula_profesor) REFERENCES Profesores(cedula_profesor)
 );
 
-create table Se_especializa(
-    cedula_profesor varchar(10),
-    codigo_esp int,
-    primary key (cedula_profesor, codigo_esp),
-    Foreign Key (cedula_profesor) REFERENCES Profesores(cedula_profesor),
-    Foreign Key (codigo_esp) REFERENCES Especialidades(codigo_esp)
+CREATE TABLE Se_especializa (
+    cedula_profesor VARCHAR(10) NOT NULL,
+    codigo_esp INT NOT NULL,
+    PRIMARY KEY (cedula_profesor, codigo_esp),
+    FOREIGN KEY (cedula_profesor) REFERENCES Profesores(cedula_profesor),
+    FOREIGN KEY (codigo_esp) REFERENCES Especialidades(codigo_esp)
 );
 
-create table Intereses(
-    cedula_tesista varchar(10),
-    interes varchar(100),
-    primary key (cedula_tesista, interes),
-    Foreign Key (cedula_tesista) REFERENCES Tesistas(cedula_tesista)
+CREATE TABLE Intereses (
+    cedula_tesista VARCHAR(10) NOT NULL,
+    interes VARCHAR(100),
+    PRIMARY KEY (cedula_tesista, interes),
+    FOREIGN KEY (cedula_tesista) REFERENCES Tesistas(cedula_tesista)
 );
 
-create table Propuestas(
-    codigo_prop int auto_increment primary key,
-    titulo varchar (100),
-    f_pres_comite date,
-    resultado_comite enum('Aprobado', 'No Aprobado'),
-    observ_comite varchar(150),
-    f_ent_escuela date,
-    fecha_defensa datetime,
-    nro_consejo int,
-    res_consejo enum ('Aprobado', 'No Aprobado'),
-    com_consejo varchar(150),
-    cedula_profesorT varchar(10),
-    cedula_profesorR varchar(10),
-    fecha_revision date,
-    res_revision enum ('PAR', 'PRR'),
-    Foreign Key (nro_consejo) REFERENCES Consejos_escuela(nro_consejo),
-    Foreign Key (cedula_profesorT) REFERENCES Internos(cedula_profesor),
-    Foreign Key (cedula_profesorR) REFERENCES Internos(cedula_profesor)
+CREATE TABLE Propuestas (
+    codigo_prop INT IDENTITY(1,1) PRIMARY KEY,
+    titulo VARCHAR(100) NOT NULL,
+    f_pres_comite DATE NOT NULL,
+    resultado_comite VARCHAR(20) NOT NULL CHECK (resultado_comite IN ('Aprobado', 'No Aprobado')), 
+    observ_comite VARCHAR(150),
+    f_ent_escuela DATE NOT NULL,
+    fecha_defensa DATETIME NOT NULL,
+    nro_consejo varchar(30) NOT NULL,
+    res_consejo VARCHAR(20) NOT NULL CHECK (res_consejo IN ('Aprobado', 'No Aprobado')), 
+    com_consejo VARCHAR(150),
+    cedula_profesorT VARCHAR(10) NOT NULL,
+    cedula_profesorR VARCHAR(10) NOT NULL,
+    fecha_revision DATE NOT NULL,
+    res_revision VARCHAR(20) NOT NULL CHECK (res_revision IN ('PAR', 'PRR')), 
+    FOREIGN KEY (nro_consejo) REFERENCES Consejos_escuela(nro_consejo),
+    FOREIGN KEY (cedula_profesorT) REFERENCES Internos(cedula_profesor),
+    FOREIGN KEY (cedula_profesorR) REFERENCES Internos(cedula_profesor)
 );
 
 create table Experimentales(
-    codigo_prop int,
-    Foreign Key (codigo_prop) REFERENCES Propuestas(codigo_prop)
+    codigo_prop int PRIMARY KEY,
+    FOREIGN KEY (codigo_prop) REFERENCES Propuestas(codigo_prop)
 );
 
 create table Instrumentales(
-    codigo_prop int,
-    cedula_tutorEmp varchar(10),
-    Foreign Key (codigo_prop) REFERENCES Propuestas(codigo_prop),
-    Foreign Key (cedula_tutorEmp) REFERENCES Tutores_emp(cedula_tutorEmp)
+    codigo_prop int PRIMARY KEY,
+    cedula_tutorEmp varchar(10) NOT NULL,
+    FOREIGN KEY (codigo_prop) REFERENCES Propuestas(codigo_prop),
+    FOREIGN KEY (cedula_tutorEmp) REFERENCES Tutores_emp(cedula_tutorEmp)
 );
 
 create table Evaluacion_prop(
-    codigo_prop int,
-    codigo_cr int,
-    nota decimal(18,2),
-    primary key(codigo_prop, codigo_cr), 
-    Foreign Key (codigo_prop) REFERENCES Propuestas(codigo_prop),
-    Foreign Key (codigo_cr) REFERENCES Criterios_revision(codigo_cr)
+    codigo_prop int NOT NULL,
+    codigo_cr int NOT NULL,
+    nota decimal(18,2) NOT NULL,
+    PRIMARY KEY(codigo_prop, codigo_cr), 
+    FOREIGN KEY (codigo_prop) REFERENCES Propuestas(codigo_prop),
+    FOREIGN KEY (codigo_cr) REFERENCES Criterios_revision(codigo_cr)
 );
 
 create table Proponen(
-    cedula_tesista varchar(10),
-    codigo_prop int,
-    primary key(codigo_prop, cedula_tesista),
-    Foreign Key (cedula_tesista) REFERENCES Tesistas(cedula_tesista),
-    Foreign Key (codigo_prop) REFERENCES Propuestas(codigo_prop)
+    cedula_tesista varchar(10) NOT NULL,
+    codigo_prop int NOT NULL,
+    PRIMARY KEY(codigo_prop, cedula_tesista),
+    FOREIGN KEY (cedula_tesista) REFERENCES Tesistas(cedula_tesista),
+    FOREIGN KEY (codigo_prop) REFERENCES Propuestas(codigo_prop)
 );
 
 create table Es_jurado(
-    codigo_prop int,
-    cedula_profesor varchar(10),
-    primary key(codigo_prop, cedula_profesor),
-    Foreign Key (codigo_prop) REFERENCES Propuestas(codigo_prop),
-    Foreign Key (cedula_profesor) REFERENCES Profesores(cedula_profesor)
+    codigo_prop int NOT NULL,
+    cedula_profesor varchar(10) NOT NULL,
+    PRIMARY KEY(codigo_prop, cedula_profesor),
+    FOREIGN KEY (codigo_prop) REFERENCES Propuestas(codigo_prop),
+    FOREIGN KEY (cedula_profesor) REFERENCES Profesores(cedula_profesor)
 );
 
 create table Evaluacion_tesista(
-    codigo_prop int,
-    cedula_tesista varchar(10),
-    cedula_profesor varchar(10),
-    codigo_ce int,
-    nota decimal(18,2),
-    primary key(codigo_prop, cedula_tesista, cedula_profesor, codigo_ce),
-    Foreign Key (codigo_prop, cedula_tesista) REFERENCES Proponen(codigo_prop, cedula_tesista),
-    Foreign Key (cedula_profesor) REFERENCES Profesores(cedula_profesor),
-    Foreign Key (codigo_ce) REFERENCES Criterios_evaluacion(codigo_ce)
+    codigo_prop int NOT NULL,
+    cedula_tesista varchar(10) NOT NULL,
+    cedula_profesor varchar(10) NOT NULL,
+    codigo_ce int NOT NULL,
+    nota decimal(18,2) NOT NULL,
+    PRIMARY KEY(codigo_prop, cedula_tesista, cedula_profesor, codigo_ce),
+    FOREIGN KEY (codigo_prop, cedula_tesista) REFERENCES Proponen(codigo_prop, cedula_tesista),
+    FOREIGN KEY (cedula_profesor) REFERENCES Profesores(cedula_profesor),
+    FOREIGN KEY (codigo_ce) REFERENCES Criterios_evaluacion(codigo_ce)
 );
-
 
 --If needed
 DROP TABLE IF EXISTS Evaluacion_tesista;

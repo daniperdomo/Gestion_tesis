@@ -59,7 +59,7 @@ const PropuestaForm = () => {
                     value={titulo} 
                     onChange={handleTituloChange} 
                     className="form-input" 
-                    maxLength="100" 
+                    maxLength={10}
                 />
                 
                 <label className="form-label">Fecha de Presentación al Comité:</label>
@@ -86,7 +86,7 @@ const PropuestaForm = () => {
                     value={observComite} 
                     onChange={handleObservComiteChange} 
                     className="form-input" 
-                    maxLength="150" 
+                    maxLength={150}
                 />
                 
                 <label className="form-label">Fecha de Entrega a la Escuela:</label>
@@ -107,10 +107,11 @@ const PropuestaForm = () => {
                 
                 <label className="form-label">Número de Consejo:</label>
                 <input 
-                    type="number" 
+                    type="text" 
                     value={nroConsejo} 
                     onChange={handleNroConsejoChange} 
-                    className="form-input" 
+                    className="form-input"
+                    maxLength={30} 
                 />
                 
                 <label className="form-label">Resultado del Consejo:</label>
@@ -129,7 +130,7 @@ const PropuestaForm = () => {
                     value={comConsejo} 
                     onChange={handleComConsejoChange} 
                     className="form-input" 
-                    maxLength="150" 
+                    maxLength={150}
                 />
                 
                 <label className="form-label">Cédula del Profesor Tutor:</label>
@@ -138,7 +139,7 @@ const PropuestaForm = () => {
                     value={cedulaProfesorT} 
                     onChange={handleCedulaProfesorTChange} 
                     className="form-input" 
-                    maxLength="10" 
+                    maxLength={10}
                 />
                 
                 <label className="form-label">Cédula del Profesor Revisor:</label>
@@ -147,7 +148,7 @@ const PropuestaForm = () => {
                     value={cedulaProfesorR} 
                     onChange={handleCedulaProfesorRChange} 
                     className="form-input" 
-                    maxLength="10" 
+                    maxLength={10}
                 />
                 
                 <label className="form-label">Fecha de Revisión:</label>

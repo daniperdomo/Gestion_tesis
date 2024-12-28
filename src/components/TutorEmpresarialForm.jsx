@@ -43,7 +43,7 @@ const TutorEmpresarialForm = () => {
                     value={cedulaTutorEmp} 
                     onChange={handleCedulaChange} 
                     className="form-input" 
-                    maxLength="10"
+                    maxLength={10}
                 />
                 <label className="form-label">
                     Nombre del Tutor Empresarial:
@@ -53,7 +53,7 @@ const TutorEmpresarialForm = () => {
                     value={nombreTutorEmp} 
                     onChange={handleNombreChange} 
                     className="form-input" 
-                    maxLength="70"
+                    maxLength={70}
                 />
                 <label className="form-label">
                     Teléfono:
@@ -63,7 +63,7 @@ const TutorEmpresarialForm = () => {
                     value={telefono} 
                     onChange={handleTelefonoChange} 
                     className="form-input" 
-                    maxLength="20"
+                    maxLength={20}
                 />
                 <label className="form-label">
                     Empresa:
@@ -73,7 +73,7 @@ const TutorEmpresarialForm = () => {
                     value={empresa} 
                     onChange={handleEmpresaChange} 
                     className="form-input" 
-                    maxLength="30" 
+                    maxLength={30}
                 />
                 <button type="submit" className="form-button">
                     Registrar Tutor Empresarial

@@ -3,12 +3,11 @@ const path = require("path");
 const app = express();
 const cors = require("cors");
 const port = 8080;
-const mysql = require("mysql");
 
 // const sql = require("mssql/msnodesqlv8")
 // const config = {
 //     server: "JESUS\\SQLEXPRESS", //Donde dice JESUS deben poner el nombre que les aparece a ustedes cuando ejecutan SQL Server
-//     database: "Nomina",
+//     database: "Gestion_Tesis", //Aca va el nombre de la DB que se utilizara, por convencion sera 'Gestion_Tesis'
 //     driver: "msnodesqlv8",
 //     options: {
 //         trustedConnection: true
@@ -29,13 +28,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "gestion_tesis",
-});
 
 
 app.use(express.static(path.join(__dirname, 'client/build')));

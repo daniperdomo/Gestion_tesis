@@ -10,8 +10,8 @@ const Header = () => {
 
     return (
         <header>
-            <nav className="bg-white px-4 lg:px-6 py-2.5 dark:bg-[#00003EE8]">
-                <div className="flex flex-wrap items-center mx-auto max-w-screen-xl">
+            <nav className="bg-white top-0 left-0 w-full z-50 px-4 lg:px-6 py-2.5 dark:bg-[#00003EE8] shadow">
+                <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <Link to="/" className="flex items-center">
                         <img src="src/assets/images/ucab.webp" className="mr-3 h-6 sm:h-9" alt="Logo" />
                     </Link>

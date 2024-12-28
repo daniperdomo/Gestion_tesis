@@ -48,19 +48,19 @@ const ProfesorForm = () => {
             <form className="form" onSubmit={handleSubmit}>
                 <label className="form-label">
                     Cédula:
-                    <input type="text" value={cedula} onChange={handleCedulaChange} className="form-input" />
+                    <input type="text" value={cedula} onChange={handleCedulaChange} className="form-input" maxLength={10}/>
                 </label>
                 <label className="form-label">
                     Nombre:
-                    <input type="text" value={nombre} onChange={handleNombreChange} className="form-input" />
+                    <input type="text" value={nombre} onChange={handleNombreChange} className="form-input" maxLength={70}/>
                 </label>
                 <label className="form-label">
                     Correo:
-                    <input type="email" value={correo} onChange={handleCorreoChange} className="form-input" />
+                    <input type="text" value={correo} onChange={handleCorreoChange} className="form-input" maxLength={30}/>
                 </label>
                 <label className="form-label">
                     Teléfono:
-                    <input type="tel" value={telefono} onChange={handleTelefonoChange} className="form-input" />
+                    <input type="text" value={telefono} onChange={handleTelefonoChange} className="form-input" maxLength={20}/>
                 </label>
                 <label className="form-label">
                     Tipo de Profesor:
@@ -72,12 +72,12 @@ const ProfesorForm = () => {
                 {tipoProfesor === 'interno' ? (
                     <label className="form-label">
                         Dirección:
-                        <input type="text" value={infoAdicional} onChange={handleInfoAdicionalChange} className="form-input" />
+                        <input type="text" value={infoAdicional} onChange={handleInfoAdicionalChange} className="form-input" maxLength={50}/>
                     </label>
                 ) : (
                     <label className="form-label">
                         Nombre de Institución:
-                        <input type="text" value={infoAdicional} onChange={handleInfoAdicionalChange} className="form-input" />
+                        <input type="text" value={infoAdicional} onChange={handleInfoAdicionalChange} className="form-input" maxLength={30}/>
                     </label>
                 )}
                 <button type="submit" className="form-button">
