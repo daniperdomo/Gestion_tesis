@@ -5,6 +5,24 @@ const cors = require("cors");
 const port = 8080;
 const mysql = require("mysql");
 
+// const sql = require("mssql/msnodesqlv8")
+// const config = {
+//     server: "JESUS\\SQLEXPRESS", //Donde dice JESUS deben poner el nombre que les aparece a ustedes cuando ejecutan SQL Server
+//     database: "Nomina",
+//     driver: "msnodesqlv8",
+//     options: {
+//         trustedConnection: true
+//     }
+// }
+// sql.connect (config, function(error) {
+//     if(error) console.log(error)
+//     var request = new sql.Request()
+//     request.query("select * from info_gerencia", function(error, records){
+//         if(error) console.log(error)
+//         else console.log(records)
+//     })
+// })
+
 const corsOptions = {
     origin: ["http://localhost:5173"],
 };

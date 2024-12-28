@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/header';
+import Footer from '../components/footer';
 
 const Register = () => {
     const options = [
@@ -13,6 +15,7 @@ const Register = () => {
 
     return (
         <>
+            <Header/>
             <div className="container mx-auto p-4">
                 <h1 className="text-center text-2xl font-bold mb-6">Selecciona una opción para registrar</h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -29,6 +32,7 @@ const Register = () => {
                     ))}
                 </div>
             </div>
+            <Footer/>
         </>
     );
 };

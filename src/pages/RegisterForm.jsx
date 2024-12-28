@@ -7,6 +7,9 @@ import TutorEmpresarialForm from '../components/tutorEmpresarialForm';
 import ConsejoEscuelaForm from '../components/consejoEscuelaForm'; 
 import PropuestaForm from '../components/propuestaForm'; 
 import EspecialidadForm from '../components/especialidadForm'; 
+import Header from '../components/header';
+import Footer from '../components/footer';
+
 
 const RegisterForm = () => {
     const { type } = useParams();
@@ -23,6 +26,7 @@ const RegisterForm = () => {
 
     return (
         <>
+            <Header/>
             {formToRender ? (
                 <div className="container mx-auto p-4">
                     <h1 className="text-center text-2xl font-bold mb-6">Registro para: {type}</h1>
@@ -31,6 +35,7 @@ const RegisterForm = () => {
             ) : (
                 <Error404 />
             )}
+            <Footer/>
         </>
     );
 };
