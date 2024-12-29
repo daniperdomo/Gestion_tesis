@@ -10,11 +10,11 @@ const ProfesorForm = () => {
     const [infoAdicional, setInfoAdicional] = useState('');
 
     const handleCedula_profesorChange = (e) => {
-        setCedula(e.target.value);
+        setCedula_profesor(e.target.value);
     };
 
     const handleNombre_profesorChange = (e) => {
-        setNombre(e.target.value);
+        setNombre_profesor(e.target.value);
     };
 
     const handleCorreoChange = (e) => {
@@ -33,14 +33,42 @@ const ProfesorForm = () => {
         setInfoAdicional(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
+        const profesorData = {
+            cedula_profesor,
+            nombre_profesor,
+            correo,
+            telefono,
+            tipoProfesor,
+            infoAdicional
+        };
+
+        try {
+            const response = await fetch('http://localhost:8081/api/profesores', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(profesorData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al registrar el profesor');
+            }
+
+            const result = await response.json();
+            console.log('Profesor registrado:', result);
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (
         <div className="form-container">
-            <form className="form" onSubmit={handleSubmit}>
+            <form className="form" action='/api/profesores' method='post' onSubmit={handleSubmit}>
                 <label className="form-label">
                     Cédula:
                     <input type="text" value={cedula_profesor} onChange={handleCedula_profesorChange} className="form-input" maxLength={10}/>
@@ -76,12 +104,11 @@ const ProfesorForm = () => {
                     </label>
                 )}
                 <button type="submit" className="form-button">
-                    Registrar Especialidad
+                    Registrar Profesor
                 </button>
             </form>
         </div>
     );
 };
-
 
 export default ProfesorForm;

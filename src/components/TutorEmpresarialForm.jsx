@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import '../styles/estiloForm.css';
 
 const TutorEmpresarialForm = () => {
-    const [cedulaTutorEmp, setCedulaTutorEmp] = useState('');
-    const [nombreTutorEmp, setNombreTutorEmp] = useState('');
+    const [cedula_tutorEmp, setCedula_tutorEmp] = useState('');
+    const [nombre_tutorEmp, setNombre_tutorEmp] = useState('');
     const [telefono, setTelefono] = useState('');
     const [empresa, setEmpresa] = useState('');
 
-    const handleCedulaChange = (e) => {
-        setCedulaTutorEmp(e.target.value);
+    const handleCedula_tutorEmpChange = (e) => {
+        setCedula_tutorEmp(e.target.value);
     };
 
-    const handleNombreChange = (e) => {
-        setNombreTutorEmp(e.target.value);
+    const handleNombre_tutorEmpChange = (e) => {
+        setNombre_tutorEmp(e.target.value);
     };
 
     const handleTelefonoChange = (e) => {
@@ -23,9 +23,31 @@ const TutorEmpresarialForm = () => {
         setEmpresa(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
+        try {
+            const response = await fetch('http://localhost:8081/api/tutor_emp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({cedula_tutorEmp, nombre_tutorEmp, telefono, empresa})
+            })
+
+            if(response.ok){
+                const message = await response.text();
+                console.log(message);
+                setCedula_tutorEmp('')
+                setNombre_tutorEmp('')
+                setEmpresa('')
+                setTelefono('')
+            } else {
+                console.error('Error al registrar al tutor empresarial');
+            }
+
+        } catch (error) {
+            console.error('Error de red:', error);
+        }
     };
 
     return (
@@ -36,8 +58,8 @@ const TutorEmpresarialForm = () => {
                 </label>
                 <input 
                     type="text" 
-                    value={cedulaTutorEmp} 
-                    onChange={handleCedulaChange} 
+                    value={cedula_tutorEmp} 
+                    onChange={handleCedula_tutorEmpChange} 
                     className="form-input" 
                     maxLength={10}
                 />
@@ -46,8 +68,8 @@ const TutorEmpresarialForm = () => {
                 </label>
                 <input 
                     type="text" 
-                    value={nombreTutorEmp} 
-                    onChange={handleNombreChange} 
+                    value={nombre_tutorEmp} 
+                    onChange={handleNombre_tutorEmpChange} 
                     className="form-input" 
                     maxLength={70}
                 />
