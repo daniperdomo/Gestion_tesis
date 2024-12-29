@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import '../styles/estiloForm.css';
 
 const ProfesorForm = () => {
-    const [cedula, setCedula] = useState('');
-    const [nombre, setNombre] = useState('');
+    const [cedula_profesor, setCedula_profesor] = useState('');
+    const [nombre_profesor, setNombre_profesor] = useState('');
     const [correo, setCorreo] = useState('');
     const [telefono, setTelefono] = useState('');
     const [tipoProfesor, setTipoProfesor] = useState('interno');
     const [infoAdicional, setInfoAdicional] = useState('');
 
-    const handleCedulaChange = (e) => {
+    const handleCedula_profesorChange = (e) => {
         setCedula(e.target.value);
     };
 
-    const handleNombreChange = (e) => {
+    const handleNombre_profesorChange = (e) => {
         setNombre(e.target.value);
     };
 
@@ -35,12 +35,7 @@ const ProfesorForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Cédula:', cedula);
-        console.log('Nombre:', nombre);
-        console.log('Correo:', correo);
-        console.log('Teléfono:', telefono);
-        console.log('Tipo de Profesor:', tipoProfesor);
-        console.log('Información Adicional:', infoAdicional);
+        
     };
 
     return (
@@ -48,11 +43,11 @@ const ProfesorForm = () => {
             <form className="form" onSubmit={handleSubmit}>
                 <label className="form-label">
                     Cédula:
-                    <input type="text" value={cedula} onChange={handleCedulaChange} className="form-input" maxLength={10}/>
+                    <input type="text" value={cedula_profesor} onChange={handleCedula_profesorChange} className="form-input" maxLength={10}/>
                 </label>
                 <label className="form-label">
                     Nombre:
-                    <input type="text" value={nombre} onChange={handleNombreChange} className="form-input" maxLength={70}/>
+                    <input type="text" value={nombre_profesor} onChange={handleNombre_profesorChange} className="form-input" maxLength={70}/>
                 </label>
                 <label className="form-label">
                     Correo:

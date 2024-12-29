@@ -25,11 +25,7 @@ const TutorEmpresarialForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Aquí puedes implementar la lógica para enviar los datos
-        console.log('Cédula del Tutor Empresarial:', cedulaTutorEmp);
-        console.log('Nombre del Tutor Empresarial:', nombreTutorEmp);
-        console.log('Teléfono:', telefono);
-        console.log('Empresa:', empresa);
+        
     };
 
     return (
