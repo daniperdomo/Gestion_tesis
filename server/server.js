@@ -193,22 +193,22 @@ app.post('/api/propuesta', async (req, res) => {
     const request = new sql.Request();
 
     try {
-        request.input('setTitulo', sql.VarChar, setTitulo);
-        request.input('setFPresComite', sql.VarChar, setFPresComite);
-        request.input('setResultadoComite', sql.VarChar, setResultadoComite);
-        request.input('setObservComite', sql.VarChar, setObservComite);
-        request.input('setFEntEscuela', sql.VarChar, setFEntEscuela);
-        request.input('setFechaDefensa', sql.VarChar, setFechaDefensa);
-        request.input('setNroConsejo', sql.VarChar, setNroConsejo);
-        request.input('setResConsejo', sql.VarChar, setResConsejo);
-        request.input('setComConsejo', sql.VarChar, setComConsejo);
-        request.input('setCedulaProfesorT', sql.VarChar, setCedulaProfesorT);
-        request.input('setCedulaProfesorR', sql.VarChar, setCedulaProfesorR);
-        request.input('setFechaRevision', sql.VarChar, setFechaRevision);
-        request.input('setResRevision', sql.VarChar, setResRevision);
+        request.input('titulo', sql.VarChar, setTitulo);
+        request.input('f_pres_comite', sql.VarChar, setFPresComite);
+        request.input('resultado_comite', sql.VarChar, setResultadoComite);
+        request.input('observ_comite', sql.VarChar, setObservComite);
+        request.input('f_ent_escuela', sql.VarChar, setFEntEscuela);
+        request.input('fecha_defensa', sql.VarChar, setFechaDefensa);
+        request.input('nro_consejo', sql.VarChar, setNroConsejo);
+        request.input('res_consejo', sql.VarChar, setResConsejo);
+        request.input('com_consejo', sql.VarChar, setComConsejo);
+        request.input('cedula_profesorT', sql.VarChar, setCedulaProfesorT);
+        request.input('cedula_profesorR', sql.VarChar, setCedulaProfesorR);
+        request.input('fecha_revision', sql.VarChar, setFechaRevision);
+        request.input('resrevision', sql.VarChar, setResRevision);
 
         //Ahora si lo adelante jeje saludos   
-        await request.query('INSERT INTO Propuestas (setTitulo, setFPresComite, setResultadoComite, setObservComite, setFEntEscuela, setFechaDefensa, setNroConsejo, setResConsejo, setComConsejo, setCedulaProfesorT, setCedulaProfesorR, setFechaRevision, setResRevision), VALUES (@setTitulo, @setFPresComite, @setResultadoComite, @setObservComite, @setFEntEscuela, @setFechaDefensa, @setNroConsejo, @setResConsejo, @setComConsejo, @setCedulaProfesorT, @setCedulaProfesorR, @setFechaRevision, @setResRevision)');
+        await request.query('INSERT INTO Propuestas (titulo, f_pres_comite, resultado_comite, observ_comite, f_ent_escuela, fecha_defensa, nro_consejo, res_consejo, com_consejo, cedula_profesorT, cedula_profesorR, fecha_revision, resrevision), VALUES (@titulo, @f_pres_comite, @resultado_comite, @observ_comite, @f_ent_escuela, @fecha_defensa, @nro_consejo, @res_consejo, @com_consejo, @cedula_profesorT, @cedula_profesorR, @fecha_revision, @resrevision)');
 
         res.status(201).send('Propuesta registrado exitosamente');
     } catch (error) {
