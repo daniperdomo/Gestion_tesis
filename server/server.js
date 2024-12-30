@@ -169,22 +169,13 @@ app.post('/api/propuesta', async (req, res) => {
         request.input('setFechaRevision', sql.VarChar, setFechaRevision);
         request.input('setResRevision', sql.VarChar, setResRevision);
 
-        //A partir de aqui no continue con el trabajo att daniel saludos
-        await request.query('INSERT INTO Tesistas (cedula_tesista, nombre_tesista, telefono, correo_ucab, correo_particular) VALUES (@cedula_tesista, @nombre_tesista, @telefono, @correo_ucab, @correo_particular)');
+        //Ahora si lo adelante jeje saludos   
+        await request.query('INSERT INTO Propuestas (setTitulo, setFPresComite, setResultadoComite, setObservComite, setFEntEscuela, setFechaDefensa, setNroConsejo, setResConsejo, setComConsejo, setCedulaProfesorT, setCedulaProfesorR, setFechaRevision, setResRevision), VALUES (@setTitulo, @setFPresComite, @setResultadoComite, @setObservComite, @setFEntEscuela, @setFechaDefensa, @setNroConsejo, @setResConsejo, @setComConsejo, @setCedulaProfesorT, @setCedulaProfesorR, @setFechaRevision, @setResRevision)');
 
-        for (const interes of intereses) {
-            if (interes) {
-                const interesRequest = new sql.Request();
-                interesRequest.input('cedula_tesista', sql.VarChar, cedula_tesista);
-                interesRequest.input('interes', sql.VarChar, interes);
-                await interesRequest.query('INSERT INTO Intereses (cedula_tesista, interes) VALUES (@cedula_tesista, @interes)');
-            }
-        }
-
-        res.status(201).send('Tesista registrado exitosamente');
+        res.status(201).send('Propuesta registrado exitosamente');
     } catch (error) {
-        console.error("Error al registrar al tesista:", error);
-        res.status(500).send('Error al registrar al tesista');
+        console.error("Error al registrar la Propuesta:", error);
+        res.status(500).send('Error al registrar la Propuesta');
     }
 });
 
