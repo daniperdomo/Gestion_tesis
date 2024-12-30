@@ -147,6 +147,47 @@ app.post('/api/tesista', async (req, res) => {
     }
 });
 
+app.post('/api/propuesta', async (req, res) => {
+    const { setTitulo, setFPresComite, setResultadoComite, setObservComite, setFEntEscuela, setFechaDefensa,
+        setNroConsejo, setResConsejo, setComConsejo, setCedulaProfesorT, setCedulaProfesorR, setFechaRevision,
+        setResRevision} = req.body;
+
+    const request = new sql.Request();
+
+    try {
+        request.input('setTitulo', sql.VarChar, setTitulo);
+        request.input('setFPresComite', sql.VarChar, setFPresComite);
+        request.input('setResultadoComite', sql.VarChar, setResultadoComite);
+        request.input('setObservComite', sql.VarChar, setObservComite);
+        request.input('setFEntEscuela', sql.VarChar, setFEntEscuela);
+        request.input('setFechaDefensa', sql.VarChar, setFechaDefensa);
+        request.input('setNroConsejo', sql.VarChar, setNroConsejo);
+        request.input('setResConsejo', sql.VarChar, setResConsejo);
+        request.input('setComConsejo', sql.VarChar, setComConsejo);
+        request.input('setCedulaProfesorT', sql.VarChar, setCedulaProfesorT);
+        request.input('setCedulaProfesorR', sql.VarChar, setCedulaProfesorR);
+        request.input('setFechaRevision', sql.VarChar, setFechaRevision);
+        request.input('setResRevision', sql.VarChar, setResRevision);
+
+        //A partir de aqui no continue con el trabajo att daniel saludos
+        await request.query('INSERT INTO Tesistas (cedula_tesista, nombre_tesista, telefono, correo_ucab, correo_particular) VALUES (@cedula_tesista, @nombre_tesista, @telefono, @correo_ucab, @correo_particular)');
+
+        for (const interes of intereses) {
+            if (interes) {
+                const interesRequest = new sql.Request();
+                interesRequest.input('cedula_tesista', sql.VarChar, cedula_tesista);
+                interesRequest.input('interes', sql.VarChar, interes);
+                await interesRequest.query('INSERT INTO Intereses (cedula_tesista, interes) VALUES (@cedula_tesista, @interes)');
+            }
+        }
+
+        res.status(201).send('Tesista registrado exitosamente');
+    } catch (error) {
+        console.error("Error al registrar al tesista:", error);
+        res.status(500).send('Error al registrar al tesista');
+    }
+});
+
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.get('*', (req, res) => {

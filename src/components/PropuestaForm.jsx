@@ -33,21 +33,42 @@ const PropuestaForm = () => {
     const handleResRevisionChange = (e) => setResRevision(e.target.value);
 
     // Función para manejar el envío del formulario
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Título:', titulo);
-        console.log('Fecha de Presentación al Comité:', fPresComite);
-        console.log('Resultado del Comité:', resultadoComite);
-        console.log('Observaciones del Comité:', observComite);
-        console.log('Fecha de Entrega a la Escuela:', fEntEscuela);
-        console.log('Fecha de Defensa:', fechaDefensa);
-        console.log('Número de Consejo:', nroConsejo);
-        console.log('Resultado del Consejo:', resConsejo);
-        console.log('Comentarios del Consejo:', comConsejo);
-        console.log('Cédula del Profesor Tutor:', cedulaProfesorT);
-        console.log('Cédula del Profesor Revisor:', cedulaProfesorR);
-        console.log('Fecha de Revisión:', fechaRevision);
-        console.log('Resultado de Revisión:', resRevision);
+        try {
+            const response = await fetch('http://localhost:8081/api/propuesta', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({setTitulo, setFPresComite, setResultadoComite, setObservComite, setFEntEscuela, 
+                    setFechaDefensa, setNroConsejo, setResConsejo, setComConsejo, setCedulaProfesorT, 
+                    setCedulaProfesorR, setFechaRevision,setResRevision})
+            })
+
+            if(response.ok){
+                const message = await response.text();
+                console.log(message);
+                setTitulo('')
+                setFPresComite('')
+                setResultadoComite('')
+                setObservComite('')
+                setFEntEscuela('')
+                setFechaDefensa('')
+                setNroConsejo('')
+                setResConsejo('')
+                setComConsejo('')
+                setCedulaProfesorT('')
+                setCedulaProfesorR('')
+                setFechaRevision('')
+                setResRevision('')
+            } else {
+                console.error('Error al registrar la propuesta del TG');
+            }
+
+        } catch (error) {
+            console.error('Error de red:', error);
+        }
     };
 
     return (
