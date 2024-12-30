@@ -85,7 +85,7 @@ app.post('/api/profesores', (req, res) => {
     request.input('correo', sql.VarChar, correo);
     request.input('telefono', sql.VarChar, telefono);
     
-    request.query('INSERT INTO Profesores (cedula_profesor, nombre_profesor, correo, telefono) VALUES (@cedula_profesor, @nombre_profesor, @correo, @telefono)', (error, result) => {
+    request.query('INSERT INTO Profesores (cedula_profesor, nombre_profesor, correo, telefono) VALUES (@cedula_profesor, @nombre_profesor, @correo, @telefono)', (error) => {
         if (error) {
             console.log("Error inserting professor:", error);
             return res.status(500).json({ error: 'Error inserting professor' });
@@ -185,36 +185,96 @@ app.get('/api/especialidades', (req, res) => {
     });
 });
 
-app.post('/api/propuesta', async (req, res) => {
-    const { setTitulo, setFPresComite, setResultadoComite, setObservComite, setFEntEscuela, setFechaDefensa,
-        setNroConsejo, setResConsejo, setComConsejo, setCedulaProfesorT, setCedulaProfesorR, setFechaRevision,
-        setResRevision} = req.body;
+app.post('/api/propuesta', (req, res) => {
+    const { 
+        titulo, 
+        f_pres_comite, 
+        resultado_comite, 
+        observ_comite, 
+        f_ent_escuela, 
+        fecha_defensa,
+        nro_consejo, 
+        res_consejo, 
+        com_consejo, 
+        cedula_profesorT, 
+        cedula_profesorR, 
+        fecha_revision,
+        res_revision, 
+        tipoPropuesta, 
+        cedula_tutorEmp 
+    } = req.body;
 
     const request = new sql.Request();
 
-    try {
-        request.input('titulo', sql.VarChar, setTitulo);
-        request.input('f_pres_comite', sql.VarChar, setFPresComite);
-        request.input('resultado_comite', sql.VarChar, setResultadoComite);
-        request.input('observ_comite', sql.VarChar, setObservComite);
-        request.input('f_ent_escuela', sql.VarChar, setFEntEscuela);
-        request.input('fecha_defensa', sql.VarChar, setFechaDefensa);
-        request.input('nro_consejo', sql.VarChar, setNroConsejo);
-        request.input('res_consejo', sql.VarChar, setResConsejo);
-        request.input('com_consejo', sql.VarChar, setComConsejo);
-        request.input('cedula_profesorT', sql.VarChar, setCedulaProfesorT);
-        request.input('cedula_profesorR', sql.VarChar, setCedulaProfesorR);
-        request.input('fecha_revision', sql.VarChar, setFechaRevision);
-        request.input('resrevision', sql.VarChar, setResRevision);
+    request.input('titulo', sql.VarChar, titulo);
+    request.input('f_pres_comite', sql.VarChar, f_pres_comite);
+    request.input('resultado_comite', sql.VarChar, resultado_comite);
+    request.input('observ_comite', sql.VarChar, observ_comite);
+    request.input('f_ent_escuela', sql.VarChar, f_ent_escuela);
+    request.input('fecha_defensa', sql.VarChar, fecha_defensa);
+    request.input('nro_consejo', sql.VarChar, nro_consejo);
+    request.input('res_consejo', sql.VarChar, res_consejo);
+    request.input('com_consejo', sql.VarChar, com_consejo);
+    request.input('cedula_profesorT', sql.VarChar, cedula_profesorT);
+    request.input('cedula_profesorR', sql.VarChar, cedula_profesorR);
+    request.input('fecha_revision', sql.VarChar, fecha_revision);
+    request.input('res_revision', sql.VarChar, res_revision);
 
-        //Ahora si lo adelante jeje saludos   
-        await request.query('INSERT INTO Propuestas (titulo, f_pres_comite, resultado_comite, observ_comite, f_ent_escuela, fecha_defensa, nro_consejo, res_consejo, com_consejo, cedula_profesorT, cedula_profesorR, fecha_revision, resrevision), VALUES (@titulo, @f_pres_comite, @resultado_comite, @observ_comite, @f_ent_escuela, @fecha_defensa, @nro_consejo, @res_consejo, @com_consejo, @cedula_profesorT, @cedula_profesorR, @fecha_revision, @resrevision)');
+    // Insertar la propuesta y obtener el código de propuesta generado
+    request.query(`
+        INSERT INTO Propuestas (titulo, f_pres_comite, resultado_comite, observ_comite, f_ent_escuela, fecha_defensa, nro_consejo, res_consejo, com_consejo, cedula_profesorT, cedula_profesorR, fecha_revision, res_revision)
+        OUTPUT INSERTED.codigo_prop
+        VALUES (@titulo, @f_pres_comite, @resultado_comite, @observ_comite, @f_ent_escuela, @fecha_defensa, @nro_consejo, @res_consejo, @com_consejo, @cedula_profesorT, @cedula_profesorR, @fecha_revision, @res_revision)
+    `, (error, result) => {
+        if (error) {
+            console.log("Error inserting propuesta:", error);
+            return res.status(500).json({ error: 'Error inserting propuesta' });
+        }
 
-        res.status(201).send('Propuesta registrado exitosamente');
-    } catch (error) {
-        console.error("Error al registrar la Propuesta:", error);
-        res.status(500).send('Error al registrar la Propuesta');
-    }
+        const codigo_prop = result.recordset[0].codigo_prop; // Obtener el código de propuesta generado
+
+        // Insertar en la tabla correspondiente según el tipo de propuesta
+        const additionalRequest = new sql.Request();
+        if (tipoPropuesta === 'Instrumental') {
+            additionalRequest.input('codigo_prop', sql.Int, codigo_prop);
+            additionalRequest.input('cedula_tutorEmp', sql.VarChar, cedula_tutorEmp);
+            additionalRequest.query(`
+                INSERT INTO Instrumentales (codigo_prop, cedula_tutorEmp)
+                VALUES (@codigo_prop, @cedula_tutorEmp)
+            `, (error) => {
+                if (error) {
+                    console.log("Error inserting into Instrumentales:", error);
+                    return res.status(500).json({ error: 'Error inserting into Instrumentales' });
+                }
+                res.status(201).json({ message: 'Propuesta inserted successfully' });
+            });
+        } else if (tipoPropuesta === 'Experimental') {
+            additionalRequest.input('codigo_prop', sql.Int, codigo_prop);
+            additionalRequest.query(`
+                INSERT INTO Experimentales (codigo_prop)
+                VALUES (@codigo_prop)
+            `, (error) => {
+                if (error) {
+                    console.log("Error inserting into Experimentales:", error);
+                    return res.status(500).json({ error: 'Error inserting into Experimentales' });
+                }
+                res.status(201).json({ message: 'Propuesta inserted successfully' });
+            });
+        } else {
+            res.status(400).json({ error: 'Tipo de propuesta no válido' });
+        }
+    });
+});
+
+app.get('/api/consejos', (req, res) => {
+    const request = new sql.Request();
+    request.query('select nro_consejo from Consejos_escuela', (error, result) => {
+        if (error) {
+            console.log("Error fetching consejo:", error);
+            return res.status(500).send('Error fetching consejo');
+        }
+        res.json(result.recordset);
+    });
 });
 
 app.post('/api/es_jurado', (req, res) => {
@@ -264,6 +324,32 @@ app.get('/api/tesistas', (req, res) => {
         if (error) {
             console.log("Error fetching tesitas:", error);
             return res.status(500).send('Error fetching tesistas');
+        }
+        res.json(result.recordset);
+    });
+});
+
+app.get('/api/tutoresEmp', (req, res) => {
+    const request = new sql.Request();
+    request.query('select cedula_tutorEmp, nombre_tutorEmp from Tutores_emp', (error, result) => {
+        if (error) {
+            console.log("Error fetching tutores:", error);
+            return res.status(500).send('Error fetching tutores');
+        }
+        res.json(result.recordset);
+    });
+});
+
+app.get('/api/profesores-internos', (req, res) => {
+    const request = new sql.Request();
+    request.query(`
+        SELECT p.cedula_profesor, p.nombre_profesor, p.correo, p.telefono
+        FROM Profesores p
+        INNER JOIN Internos i ON p.cedula_profesor = i.cedula_profesor
+    `, (error, result) => {
+        if (error) {
+            console.log("Error fetching internos:", error);
+            return res.status(500).json({ error: 'Error fetching internos' });
         }
         res.json(result.recordset);
     });
