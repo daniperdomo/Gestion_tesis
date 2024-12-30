@@ -147,6 +147,44 @@ app.post('/api/tesista', async (req, res) => {
     }
 });
 
+// Ruta para insertar en la tabla Se_especializa
+app.post('/api/se_especializa', (req, res) => {
+    const { cedula_profesor, codigo_esp } = req.body;
+
+    const request = new sql.Request();
+    request.input('cedula_profesor', sql.VarChar, cedula_profesor);
+    request.input('codigo_esp', sql.Int, codigo_esp);
+    request.query('insert into Se_especializa (cedula_profesor, codigo_esp) values (@cedula_profesor, @codigo_esp)', (error) => {
+        if (error) {
+            console.log("Error inserting into Se_especializa:", error);
+            return res.status(500).send('Error inserting into Se_especializa');
+        }
+        res.status(201).send('Data registered successfully');
+    });
+});
+
+app.get('/api/profesores', (req, res) => {
+    const request = new sql.Request();
+    request.query('select cedula_profesor, nombre_profesor from Profesores', (error, result) => {
+        if (error) {
+            console.log("Error fetching profesores:", error);
+            return res.status(500).send('Error fetching profesores');
+        }
+        res.json(result.recordset);
+    });
+});
+
+app.get('/api/especialidades', (req, res) => {
+    const request = new sql.Request();
+    request.query('select codigo_esp, nombre_esp from Especialidades', (error, result) => {
+        if (error) {
+            console.log("Error fetching especialidades:", error);
+            return res.status(500).send('Error fetching especialidades');
+        }
+        res.json(result.recordset);
+    });
+});
+
 app.post('/api/propuesta', async (req, res) => {
     const { setTitulo, setFPresComite, setResultadoComite, setObservComite, setFEntEscuela, setFechaDefensa,
         setNroConsejo, setResConsejo, setComConsejo, setCedulaProfesorT, setCedulaProfesorR, setFechaRevision,
@@ -177,6 +215,58 @@ app.post('/api/propuesta', async (req, res) => {
         console.error("Error al registrar la Propuesta:", error);
         res.status(500).send('Error al registrar la Propuesta');
     }
+});
+
+app.post('/api/es_jurado', (req, res) => {
+    const { codigo_prop, cedula_profesor } = req.body;
+
+    const request = new sql.Request();
+    request.input('codigo_prop', sql.Int, codigo_prop);
+    request.input('cedula_profesor', sql.VarChar, cedula_profesor);
+    request.query('INSERT INTO Es_jurado (codigo_prop, cedula_profesor) VALUES (@codigo_prop, @cedula_profesor)', (error) => {
+        if (error) {
+            console.log("Error inserting into Es_jurado:", error);
+            return res.status(500).send('Error inserting into Es_jurado');
+        }
+        res.status(201).send('Datos registrados exitosamente');
+    });
+});
+
+app.get('/api/propuestas', (req, res) => {
+    const request = new sql.Request();
+    request.query('SELECT codigo_prop, titulo FROM Propuestas', (error, result) => {
+        if (error) {
+            console.log("Error fetching propuestas:", error);
+            return res.status(500).send('Error fetching propuestas');
+        }
+        res.json(result.recordset);
+    });
+});
+
+app.post('/api/proponen', (req, res) => {
+    const {codigo_prop, cedula_tesista} = req.body
+
+    const request = new sql.Request();
+    request.input('codigo_prop', sql.Int, codigo_prop);
+    request.input('cedula_tesista', sql.VarChar, cedula_tesista);
+    request.query('insert into Proponen(codigo_prop, cedula_tesista) values (@codigo_prop, @cedula_tesista)', (error) => {
+        if (error) {
+            console.log("Error inserting into Proponen:", error);
+            return res.status(500).send('Error inserting into Proponen');
+        }
+        res.status(201).send('Datos registrados exitosamente');
+    });
+})
+
+app.get('/api/tesistas', (req, res) => {
+    const request = new sql.Request();
+    request.query('select cedula_tesista, nombre_tesista from Tesistas', (error, result) => {
+        if (error) {
+            console.log("Error fetching tesitas:", error);
+            return res.status(500).send('Error fetching tesistas');
+        }
+        res.json(result.recordset);
+    });
 });
 
 app.use(express.static(path.join(__dirname, 'client/build')));

@@ -9,6 +9,9 @@ import PropuestaForm from '../components/propuestaForm';
 import EspecialidadForm from '../components/especialidadForm'; 
 import Header from '../components/header';
 import Footer from '../components/footer';
+import ProponenForm from '../components/ProponenForm';
+import SeEspecializaForm from '../components/SeEspecializaForm';
+import EsJuradoForm from '../components/EsJuradoForm';
 
 
 const RegisterForm = () => {
@@ -19,7 +22,9 @@ const RegisterForm = () => {
         { type: 'tutor-empresarial', comp: <TutorEmpresarialForm /> },
         { type: 'consejo-escuela', comp: <ConsejoEscuelaForm /> },
         { type: 'propuesta', comp: <PropuestaForm /> },
-        { type: 'especialidad', comp: <EspecialidadForm /> },
+        { type: 'proponen', comp: <ProponenForm /> },
+        { type: 'especializa', comp: <SeEspecializaForm /> },
+        { type: 'jurado', comp: <EsJuradoForm /> },
     ];
 
     const formToRender = forms.find(form => form.type === type);

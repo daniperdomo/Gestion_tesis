@@ -1,16 +1,16 @@
 create database Gestion_Tesis
 
-CREATE TABLE Especialidades (
+CREATE TABLE Especialidades (--Form listo
     codigo_esp INT IDENTITY(1,1) PRIMARY KEY,
     nombre_esp VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE Consejos_escuela (
+CREATE TABLE Consejos_escuela (--Form listo
     nro_consejo VARCHAR(30) PRIMARY KEY,
     fecha_consejo DATE NOT NULL
 );
 
-CREATE TABLE Tesistas (
+CREATE TABLE Tesistas (--Form listo
     cedula_tesista VARCHAR(10) PRIMARY KEY,
     nombre_tesista VARCHAR(70) NOT NULL,
     correo_ucab VARCHAR(30) NOT NULL,
@@ -32,27 +32,27 @@ CREATE TABLE Criterios_evaluacion (
     puntaje_max INT NOT NULL
 );
 
-CREATE TABLE Tutores_emp (
+CREATE TABLE Tutores_emp (--Form listo
     cedula_tutorEmp VARCHAR(10) PRIMARY KEY,
     nombre_tutorEmp VARCHAR(70) NOT NULL,
     telefono VARCHAR(20),
     empresa VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE Profesores (
+CREATE TABLE Profesores (--Form listo
     cedula_profesor VARCHAR(10) PRIMARY KEY,
     nombre_profesor VARCHAR(70) NOT NULL,
     correo VARCHAR(30) NOT NULL,
     telefono VARCHAR(20)
 );
 
-CREATE TABLE Externos (
+CREATE TABLE Externos (--Form listo
     cedula_profesor VARCHAR(10) PRIMARY KEY,
     institucion VARCHAR(30) NOT NULL,
     FOREIGN KEY (cedula_profesor) REFERENCES Profesores(cedula_profesor)
 );
 
-CREATE TABLE Internos (
+CREATE TABLE Internos (--Form listo
     cedula_profesor VARCHAR(10) PRIMARY KEY,
     direccion VARCHAR(50),
     FOREIGN KEY (cedula_profesor) REFERENCES Profesores(cedula_profesor)
@@ -66,7 +66,7 @@ CREATE TABLE Se_especializa (
     FOREIGN KEY (codigo_esp) REFERENCES Especialidades(codigo_esp)
 );
 
-CREATE TABLE Intereses (
+CREATE TABLE Intereses (--Form listo
     cedula_tesista VARCHAR(10) NOT NULL,
     interes VARCHAR(100),
     PRIMARY KEY (cedula_tesista, interes),

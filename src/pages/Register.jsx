@@ -10,7 +10,10 @@ const Register = () => {
         { id: 3, title: 'Tutor Empresarial', description: 'Registro de trabajadores que son tutores', link: '/register/tutor-empresarial' },
         { id: 4, title: 'Especialidad', description: 'Registro de especialidades', link: '/register/especialidad' },
         { id: 5, title: 'Consejo Escuela', description: 'Registro de reuniones realizadas por la escuela', link: '/register/consejo-escuela' },
-        { id: 6, title: 'Propuesta TG', description: 'Registro de propuestas realizadas por tesistas', link: '/register/propuesta'}
+        { id: 6, title: 'Propuesta TG', description: 'Registro de propuestas realizadas por tesistas', link: '/register/propuesta'},
+        { id: 7, title: 'Proponen', description: 'Registro de la relacion entre tesistas y propuestas', link: '/register/proponen'},
+        { id: 8, title: 'Se Especializa', description: 'Registro de relacion entre profesores y especialidades', link: '/register/especializa'},
+        { id: 9, title: 'Es Jurado', description: 'Registro de relacion entre jurados y propuestas', link: '/register/jurado'}
     ];
 
     return (
