@@ -59,7 +59,7 @@ const TesistaForm = () => {
                 setCorreo_UCAB('');
                 setTelefono('');
                 setNombre_tesista('');
-                setIntereses(['']); // Reiniciar intereses
+                setIntereses(['']);
             } else {
                 console.error('Error al registrar al tesista');
             }

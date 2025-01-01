@@ -60,6 +60,12 @@ const ProfesorForm = () => {
 
             const result = await response.json();
             console.log('Profesor registrado:', result);
+            setCedula_profesor('');
+            setNombre_profesor('');
+            setCorreo('');
+            setTelefono('');
+            setTipoProfesor('interno');
+            setInfoAdicional('');
 
         } catch (error) {
             console.error('Error:', error);

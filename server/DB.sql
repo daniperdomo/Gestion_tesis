@@ -22,14 +22,14 @@ CREATE TABLE Criterios_revision (
     codigo_cr INT IDENTITY(1,1) PRIMARY KEY,
     nombre_cr VARCHAR(30) NOT NULL,
     tipo VARCHAR(1) NOT NULL CHECK (tipo IN ('I', 'E')),
-    puntaje_max INT NOT NULL
+    puntaje_max INT NOT NULL check (puntaje_max > 0)
 );
 
 CREATE TABLE Criterios_evaluacion (
     codigo_ce INT IDENTITY(1,1) PRIMARY KEY,
     nombre_ce VARCHAR(30) NOT NULL,
     tipo VARCHAR(1) NOT NULL CHECK (tipo IN ('I', 'E')),
-    puntaje_max INT NOT NULL
+    puntaje_max INT NOT NULL check (puntaje_max > 0)
 );
 
 CREATE TABLE Tutores_emp (--Form listo
@@ -54,7 +54,7 @@ CREATE TABLE Externos (--Form listo
 
 CREATE TABLE Internos (--Form listo
     cedula_profesor VARCHAR(10) PRIMARY KEY,
-    direccion VARCHAR(50),
+    direccion VARCHAR(50) not null,
     FOREIGN KEY (cedula_profesor) REFERENCES Profesores(cedula_profesor)
 );
 
@@ -68,7 +68,7 @@ CREATE TABLE Se_especializa (
 
 CREATE TABLE Intereses (--Form listo
     cedula_tesista VARCHAR(10) NOT NULL,
-    interes VARCHAR(100),
+    interes VARCHAR(100) not null,
     PRIMARY KEY (cedula_tesista, interes),
     FOREIGN KEY (cedula_tesista) REFERENCES Tesistas(cedula_tesista)
 );

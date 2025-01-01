@@ -185,7 +185,7 @@ app.get('/api/especialidades', (req, res) => {
     });
 });
 
-app.post('/api/propuesta', (req, res) => {
+app.post('/api/propuesta', async (req, res) => {
     const { 
         titulo, 
         f_pres_comite, 
@@ -201,69 +201,79 @@ app.post('/api/propuesta', (req, res) => {
         fecha_revision,
         res_revision, 
         tipoPropuesta, 
-        cedula_tutorEmp 
+        cedula_tutorEmp,
+        cedula_tesista1,
+        cedula_tesista2 
     } = req.body;
 
-    const request = new sql.Request();
+    try {
+        const request = new sql.Request();
+        request.input('titulo', sql.VarChar, titulo);
+        request.input('f_pres_comite', sql.VarChar, f_pres_comite);
+        request.input('resultado_comite', sql.VarChar, resultado_comite);
+        request.input('observ_comite', sql.VarChar, observ_comite);
+        request.input('f_ent_escuela', sql.VarChar, f_ent_escuela);
+        request.input('fecha_defensa', sql.VarChar, fecha_defensa);
+        request.input('nro_consejo', sql.VarChar, nro_consejo);
+        request.input('res_consejo', sql.VarChar, res_consejo);
+        request.input('com_consejo', sql.VarChar, com_consejo);
+        request.input('cedula_profesorT', sql.VarChar, cedula_profesorT);
+        request.input('cedula_profesorR', sql.VarChar, cedula_profesorR);
+        request.input('fecha_revision', sql.VarChar, fecha_revision);
+        request.input('res_revision', sql.VarChar, res_revision);
 
-    request.input('titulo', sql.VarChar, titulo);
-    request.input('f_pres_comite', sql.VarChar, f_pres_comite);
-    request.input('resultado_comite', sql.VarChar, resultado_comite);
-    request.input('observ_comite', sql.VarChar, observ_comite);
-    request.input('f_ent_escuela', sql.VarChar, f_ent_escuela);
-    request.input('fecha_defensa', sql.VarChar, fecha_defensa);
-    request.input('nro_consejo', sql.VarChar, nro_consejo);
-    request.input('res_consejo', sql.VarChar, res_consejo);
-    request.input('com_consejo', sql.VarChar, com_consejo);
-    request.input('cedula_profesorT', sql.VarChar, cedula_profesorT);
-    request.input('cedula_profesorR', sql.VarChar, cedula_profesorR);
-    request.input('fecha_revision', sql.VarChar, fecha_revision);
-    request.input('res_revision', sql.VarChar, res_revision);
+        const result = await request.query(`
+            INSERT INTO Propuestas (titulo, f_pres_comite, resultado_comite, observ_comite, f_ent_escuela, fecha_defensa, nro_consejo, res_consejo, com_consejo, cedula_profesorT, cedula_profesorR, fecha_revision, res_revision)
+            OUTPUT INSERTED.codigo_prop
+            VALUES (@titulo, @f_pres_comite, @resultado_comite, @observ_comite, @f_ent_escuela, @fecha_defensa, @nro_consejo, @res_consejo, @com_consejo, @cedula_profesorT, @cedula_profesorR, @fecha_revision, @res_revision)
+        `);
 
-    // Insertar la propuesta y obtener el código de propuesta generado
-    request.query(`
-        INSERT INTO Propuestas (titulo, f_pres_comite, resultado_comite, observ_comite, f_ent_escuela, fecha_defensa, nro_consejo, res_consejo, com_consejo, cedula_profesorT, cedula_profesorR, fecha_revision, res_revision)
-        OUTPUT INSERTED.codigo_prop
-        VALUES (@titulo, @f_pres_comite, @resultado_comite, @observ_comite, @f_ent_escuela, @fecha_defensa, @nro_consejo, @res_consejo, @com_consejo, @cedula_profesorT, @cedula_profesorR, @fecha_revision, @res_revision)
-    `, (error, result) => {
-        if (error) {
-            console.log("Error inserting propuesta:", error);
-            return res.status(500).json({ error: 'Error inserting propuesta' });
-        }
+        const codigo_prop = result.recordset[0].codigo_prop; 
 
-        const codigo_prop = result.recordset[0].codigo_prop; // Obtener el código de propuesta generado
-
-        // Insertar en la tabla correspondiente según el tipo de propuesta
-        const additionalRequest = new sql.Request();
         if (tipoPropuesta === 'Instrumental') {
+            const additionalRequest = new sql.Request();
             additionalRequest.input('codigo_prop', sql.Int, codigo_prop);
             additionalRequest.input('cedula_tutorEmp', sql.VarChar, cedula_tutorEmp);
-            additionalRequest.query(`
+            await additionalRequest.query(`
                 INSERT INTO Instrumentales (codigo_prop, cedula_tutorEmp)
-                VALUES (@codigo_prop, @cedula_tutorEmp)
-            `, (error) => {
-                if (error) {
-                    console.log("Error inserting into Instrumentales:", error);
-                    return res.status(500).json({ error: 'Error inserting into Instrumentales' });
-                }
-                res.status(201).json({ message: 'Propuesta inserted successfully' });
-            });
+                VALUES (@codigo_prop, @ced ula_tutorEmp)
+            `);
         } else if (tipoPropuesta === 'Experimental') {
+            const additionalRequest = new sql.Request();
             additionalRequest.input('codigo_prop', sql.Int, codigo_prop);
-            additionalRequest.query(`
+            await additionalRequest.query(`
                 INSERT INTO Experimentales (codigo_prop)
                 VALUES (@codigo_prop)
-            `, (error) => {
-                if (error) {
-                    console.log("Error inserting into Experimentales:", error);
-                    return res.status(500).json({ error: 'Error inserting into Experimentales' });
-                }
-                res.status(201).json({ message: 'Propuesta inserted successfully' });
-            });
+            `);
         } else {
-            res.status(400).json({ error: 'Tipo de propuesta no válido' });
+            return res.status(400).json({ error: 'Tipo de propuesta no válido' });
         }
-    });
+
+        if (cedula_tesista1) {
+            const proponenRequest = new sql.Request();
+            proponenRequest.input('cedula_tesista1', sql.VarChar, cedula_tesista1);
+            proponenRequest.input('codigo_prop', sql.Int, codigo_prop);
+            await proponenRequest.query(`
+                INSERT INTO proponen (cedula_tesista, codigo_prop) 
+                VALUES (@cedula_tesista1, @codigo_prop)
+            `);
+        }
+
+        if (cedula_tesista2) {
+            const proponenRequest = new sql.Request();
+            proponenRequest.input('cedula_tesista2', sql.VarChar, cedula_tesista2);
+            proponenRequest.input('codigo_prop', sql.Int, codigo_prop);
+            await proponenRequest.query(`
+                INSERT INTO proponen (cedula_tesista, codigo_prop) 
+                VALUES (@cedula_tesista2, @codigo_prop)
+            `);
+        }
+
+        res.status(201).json({ message: 'Propuesta inserted successfully' });
+    } catch (error) {
+        console.log("Error inserting propuesta:", error);
+        res.status(500).json({ error: 'Error inserting propuesta' });
+    }
 });
 
 app.get('/api/consejos', (req, res) => {
@@ -302,21 +312,6 @@ app.get('/api/propuestas', (req, res) => {
         res.json(result.recordset);
     });
 });
-
-app.post('/api/proponen', (req, res) => {
-    const {codigo_prop, cedula_tesista} = req.body
-
-    const request = new sql.Request();
-    request.input('codigo_prop', sql.Int, codigo_prop);
-    request.input('cedula_tesista', sql.VarChar, cedula_tesista);
-    request.query('insert into Proponen(codigo_prop, cedula_tesista) values (@codigo_prop, @cedula_tesista)', (error) => {
-        if (error) {
-            console.log("Error inserting into Proponen:", error);
-            return res.status(500).send('Error inserting into Proponen');
-        }
-        res.status(201).send('Datos registrados exitosamente');
-    });
-})
 
 app.get('/api/tesistas', (req, res) => {
     const request = new sql.Request();

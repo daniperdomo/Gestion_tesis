@@ -18,11 +18,12 @@ const PropuestaForm = () => {
     const [res_revision, setRes_revision] = useState('PAR');
     const [tipoPropuesta, setTipoPropuesta] = useState('Experimental');
     const [cedula_tutorEmp, setCedula_tutorEmp] = useState('');
-
-    // Nuevos estados para almacenar los datos de profesores, consejos y tutores
     const [profesores, setProfesores] = useState([]);
     const [consejos, setConsejos] = useState([]);
     const [tutoresEmp, setTutoresEmp] = useState([]);
+    const [tesistas, setTesistas] = useState([]);
+    const [cedula_tesista1, setCedula_tesista1] = useState('');
+    const [cedula_tesista2, setCedula_tesista2] = useState('');
 
     // Funciones para manejar los cambios en los campos de entrada
     const handleTituloChange = (e) => setTitulo(e.target.value);
@@ -40,7 +41,7 @@ const PropuestaForm = () => {
     const handleRes_revisionChange = (e) => setRes_revision(e.target.value);
     const handleTipoPropuestaChange = (e) => {
         setTipoPropuesta(e.target.value);
-        setCedula_tutorEmp(''); // Reiniciar el campo del tutor empresarial al cambiar el tipo
+        setCedula_tutorEmp('');
     };
 
     useEffect(() => {
@@ -61,7 +62,13 @@ const PropuestaForm = () => {
             .then(response => response.json())
             .then(data => setTutoresEmp(data))
             .catch(error => console.error('Error fetching tutores:', error));
-    }, []); // Asegúrate de que el array de dependencias esté vacío
+
+        // Obtener tesistas
+        fetch('http://localhost:8081/api/tesistas')
+            .then(response => response.json())
+            .then(data => setTesistas(data))
+            .catch(error => console.error('Error fetching tutores:', error));
+    }, []);
 
     // Función para manejar el envío del formulario
     const handleSubmit = async (e) => {
@@ -81,7 +88,9 @@ const PropuestaForm = () => {
             fecha_revision,
             res_revision,
             tipoPropuesta,
-            cedula_tutorEmp
+            cedula_tutorEmp,
+            cedula_tesista1,
+            cedula_tesista2
         };
 
         try {
@@ -96,7 +105,27 @@ const PropuestaForm = () => {
             if (response.ok) {
                 const result = await response.json();
                 console.log('Propuesta registrada:', result);
-                // Aquí puedes agregar lógica para limpiar el formulario o mostrar un mensaje de éxito
+                setTitulo('');
+                setF_pres_comite('');
+                setResultado_comite('Aprobado');
+                setObserv_comite('');
+                setF_ent_escuela('');
+                setFecha_defensa('');
+                setNro_consejo('');
+                setRes_consejo('Aprobado');
+                setCom_consejo('');
+                setCedula_profesorT('');
+                setCedula_profesorR('');
+                setFecha_revision('');
+                setRes_revision('PAR');
+                setTipoPropuesta('Experimental');
+                setCedula_tutorEmp('');
+                setProfesores([]);
+                setConsejos([]);
+                setTutoresEmp([]);
+                setTesistas([]);
+                setCedula_tesista1('');
+                setCedula_tesista2('');
             } else {
                 const errorData = await response.json();
                 console.error('Error al registrar la propuesta:', errorData);
@@ -188,7 +217,7 @@ const PropuestaForm = () => {
                     <label className="form-label">Resultado de revisión:</label>
                     <select className="form-input" value={res_revision} onChange={handleRes_revisionChange}>
                         <option value="PAR">PAR</option>
-                        <option value="IMPAR">IMPAR</option>
+                        <option value="PRR">PRR</option>
                     </select>
                 </div>
                 <div>
@@ -211,6 +240,26 @@ const PropuestaForm = () => {
                         </select>
                     </div>
                 )}
+                <div>
+                    <label className="form-label">Tesista/s:</label>
+                    <select className="form-input" value={cedula_tesista1} onChange={(e) => setCedula_tesista1(e.target.value)} required>
+                        <option value="">Selecciona un tesista </option>
+                        {tesistas.map(tesista => (
+                            <option key={tesista.cedula_tesista} value={tesista.cedula_tesista}>
+                                {tesista.nombre_tesista}
+                            </option>
+                        ))}
+                    </select>
+
+                    <select className="form-input" value={cedula_tesista2} onChange={(e) => setCedula_tesista2(e.target.value)}>
+                        <option value="">Selecciona un segundo tesista (opcional)</option>
+                        {tesistas.map(tesista => (
+                            <option key={tesista.cedula_tesista} value={tesista.cedula_tesista}>
+                                {tesista.nombre_tesista}
+                            </option>
+                        ))}
+                    </select>
+                </div>
                 <button className="form-button" type="submit">Registrar Propuesta</button>
             </form>
         </div>
