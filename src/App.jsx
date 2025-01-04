@@ -7,6 +7,8 @@ import Registro_usuario from './pages/Registro_usuario';
 import Register from './pages/Register';
 import RegisterForm from './pages/RegisterForm';
 import Inicio_Sesion from './pages/Inicio_sesion';
+import Evaluation from './pages/Evaluation';
+import EvaluationForm from './pages/EvaluationForm';
 
 function App() {
     return (
@@ -17,6 +19,8 @@ function App() {
                 <Route path='/inicio_sesion' element={<Inicio_Sesion />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/register/:type' element={<RegisterForm />} />
+                <Route path='/evaluation' element={<Evaluation />} />
+                <Route path='/evaluation/:type' element={<EvaluationForm />} />
                 <Route path='*' element={<Pantalla_inicial />} />
             </Routes>
         </Router>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/estiloForm.css';
+import '../../styles/estiloForm.css'
 
 const EsJuradoForm = () => {
     const [profesores, setProfesores] = useState([]);
@@ -50,7 +50,6 @@ const EsJuradoForm = () => {
 
     return (
         <div className="form-container">
-            <h2>Jurado</h2>
             <form className="form" onSubmit={handleSubmit}>
                 <label className="form-label">Profesor:</label>
                 <select
@@ -62,7 +61,7 @@ const EsJuradoForm = () => {
                     <option value="">Seleccione un profesor</option>
                     {profesores.map(profesor => (
                         <option key={profesor.cedula_profesor} value={profesor.cedula_profesor}>
-                            {profesor.nombre_profesor}
+                            {`${profesor.cedula_profesor} - ${profesor.nombre_profesor}`}
                         </option>
                     ))}
                 </select>

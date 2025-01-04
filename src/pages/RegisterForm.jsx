@@ -1,17 +1,16 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Error404 from './Error404';
-import TesistaForm from '../components/tesistaForm'; 
-import ProfesorForm from '../components/profesorForm'; 
-import TutorEmpresarialForm from '../components/TutorEmpresarialForm'; 
-import ConsejoEscuelaForm from '../components/consejoEscuelaForm'; 
-import PropuestaForm from '../components/PropuestaForm'; 
-import EspecialidadForm from '../components/especialidadForm'; 
+import TesistaForm from '../components/registration/tesistaForm'; 
+import ProfesorForm from '../components/registration/profesorForm'; 
+import TutorEmpresarialForm from '../components/registration/TutorEmpresarialForm'; 
+import ConsejoEscuelaForm from '../components/registration/consejoEscuelaForm'; 
+import PropuestaForm from '../components/registration/PropuestaForm'; 
 import Header from '../components/header';
 import Footer from '../components/footer';
-import ProponenForm from '../components/ProponenForm';
-import SeEspecializaForm from '../components/SeEspecializaForm';
-import EsJuradoForm from '../components/EsJuradoForm';
+import SeEspecializaForm from '../components/registration/SeEspecializaForm';
+import EsJuradoForm from '../components/registration/EsJuradoForm';
+import EspecialidadForm from '../components/registration/especialidadForm';
 
 
 const RegisterForm = () => {
@@ -22,9 +21,9 @@ const RegisterForm = () => {
         { type: 'tutor-empresarial', comp: <TutorEmpresarialForm /> },
         { type: 'consejo-escuela', comp: <ConsejoEscuelaForm /> },
         { type: 'propuesta', comp: <PropuestaForm /> },
-        { type: 'proponen', comp: <ProponenForm /> },
         { type: 'especializa', comp: <SeEspecializaForm /> },
         { type: 'jurado', comp: <EsJuradoForm /> },
+        { type: 'especialidad', comp: <EspecialidadForm />}
     ];
 
     const formToRender = forms.find(form => form.type === type);

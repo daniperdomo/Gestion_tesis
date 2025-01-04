@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/estiloForm.css';
+import '../../styles/estiloForm.css'
 
 const SeEspecializaForm = () => {
     const [profesores, setProfesores] = useState([]);

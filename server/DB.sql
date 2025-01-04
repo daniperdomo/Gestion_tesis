@@ -20,15 +20,15 @@ CREATE TABLE Tesistas (--Form listo
 
 CREATE TABLE Criterios_revision (
     codigo_cr INT IDENTITY(1,1) PRIMARY KEY,
-    nombre_cr VARCHAR(30) NOT NULL,
+    nombre_cr VARCHAR(255) NOT NULL,
     tipo VARCHAR(1) NOT NULL CHECK (tipo IN ('I', 'E')),
     puntaje_max INT NOT NULL check (puntaje_max > 0)
 );
 
 CREATE TABLE Criterios_evaluacion (
     codigo_ce INT IDENTITY(1,1) PRIMARY KEY,
-    nombre_ce VARCHAR(30) NOT NULL,
-    tipo VARCHAR(1) NOT NULL CHECK (tipo IN ('I', 'E')),
+    nombre_ce VARCHAR(255) NOT NULL,
+    tipo VARCHAR(10) NOT NULL CHECK (tipo IN ('I', 'I_T', 'E')),
     puntaje_max INT NOT NULL check (puntaje_max > 0)
 );
 

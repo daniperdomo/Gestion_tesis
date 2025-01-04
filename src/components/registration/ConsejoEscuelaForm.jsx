@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/estiloForm.css';
+import '../../styles/estiloForm.css'
 
 const ConsejoEscuelaForm = () => {
     // Estado para almacenar el número de consejo y la fecha

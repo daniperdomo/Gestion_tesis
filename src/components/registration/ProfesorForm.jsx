@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/estiloForm.css';
+import '../../styles/estiloForm.css'
 
 const ProfesorForm = () => {
     const [cedula_profesor, setCedula_profesor] = useState('');

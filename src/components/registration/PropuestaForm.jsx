@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/estiloForm.css';
+import '../../styles/estiloForm.css'
 
 const PropuestaForm = () => {
     // Estado para almacenar los valores del formulario
@@ -193,7 +193,7 @@ const PropuestaForm = () => {
                         <option value="">Seleccione un profesor</option>
                         {profesores.map((profesor) => (
                             <option key={profesor.cedula_profesor} value={profesor.cedula_profesor}>
-                                {profesor.nombre_profesor}
+                                {`${profesor.cedula_profesor} - ${profesor.nombre_profesor}`}
                             </option>
                         ))}
                     </select>
@@ -204,7 +204,7 @@ const PropuestaForm = () => {
                         <option value="">Seleccione un profesor</ option>
                         {profesores.map((profesor) => (
                             <option key={profesor.cedula_profesor} value={profesor.cedula_profesor}>
-                                {profesor.nombre_profesor}
+                                {`${profesor.cedula_profesor} - ${profesor.nombre_profesor}`}
                             </option>
                         ))}
                     </select>
@@ -234,7 +234,7 @@ const PropuestaForm = () => {
                             <option value="">Seleccione un tutor</option>
                             {tutoresEmp.map((tutor) => (
                                 <option key={tutor.cedula_tutorEmp} value={tutor.cedula_tutorEmp}>
-                                    {tutor.nombre_tutorEmp}
+                                    {`${tutor.cedula_tutorEmp} - ${tutor.nombre_tutorEmp}`}
                                 </option>
                             ))}
                         </select>
@@ -246,7 +246,7 @@ const PropuestaForm = () => {
                         <option value="">Selecciona un tesista </option>
                         {tesistas.map(tesista => (
                             <option key={tesista.cedula_tesista} value={tesista.cedula_tesista}>
-                                {tesista.nombre_tesista}
+                                {`${tesista.cedula_tesista} - ${tesista.nombre_tesista}`}
                             </option>
                         ))}
                     </select>
@@ -255,7 +255,7 @@ const PropuestaForm = () => {
                         <option value="">Selecciona un segundo tesista (opcional)</option>
                         {tesistas.map(tesista => (
                             <option key={tesista.cedula_tesista} value={tesista.cedula_tesista}>
-                                {tesista.nombre_tesista}
+                                {`${tesista.cedula_tesista} - ${tesista.nombre_tesista}`}
                             </option>
                         ))}
                     </select>

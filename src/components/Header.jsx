@@ -31,10 +31,13 @@ const Header = () => {
                     <div className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1 ml-auto" id="mobile-menu-2">
                         <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                             <li>
-                                <Link to="/" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Home</Link>
+                                <Link to="/" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Inicio</Link>
                             </li>
                             <li>
-                                <Link to="/register" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Register</Link>
+                                <Link to="/register" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Registrar</Link>
+                            </li>
+                            <li>
+                                <Link to="/evaluation" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Evaluar</Link>
                             </li>
                         </ul>
                     </div>
@@ -42,10 +45,13 @@ const Header = () => {
                 <div className={`lg:hidden ${isOpen ? 'block' : 'hidden'}`} id="mobile-menu-2"> 
                     <ul className="flex flex-col mt-4 font-medium">
                         <li>
-                            <Link to="/" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Home</Link>
+                            <Link to="/" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Inicio</Link>
                         </li>
                         <li>
-                            <Link to="/register" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Register</Link>
+                            <Link to="/register" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Registrar</Link>
+                        </li>
+                        <li>
+                            <Link to="/evaluation" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Evaluar</Link>
                         </li>
                     </ul>
                 </div>
