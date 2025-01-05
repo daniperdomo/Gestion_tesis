@@ -8,8 +8,8 @@ const ProfesorForm = () => {
     const [telefono, setTelefono] = useState('');
     const [tipoProfesor, setTipoProfesor] = useState('interno');
     const [infoAdicional, setInfoAdicional] = useState('');
-    const [especialidades, setEspecialidades] = useState([]); // Estado para las especialidades
-    const [nombre_Esp, setNombre_Esp] = useState(''); // Estado para la especialidad seleccionada
+    const [especialidades, setEspecialidades] = useState([]); 
+    const [nombre_Esp, setNombre_Esp] = useState(''); 
 
     const handleCedula_profesorChange = (e) => setCedula_profesor(e.target.value);
     const handleNombre_profesorChange = (e) => setNombre_profesor(e.target.value);
@@ -17,7 +17,7 @@ const ProfesorForm = () => {
     const handleTelefonoChange = (e) => setTelefono(e.target.value);
     const handleTipoProfesorChange = (e) => setTipoProfesor(e.target.value);
     const handleInfoAdicionalChange = (e) => setInfoAdicional(e.target.value);
-    const handleEspecialidadChange = (e) => setNombre_Esp(e.target.value); // Actualiza el estado de la especialidad seleccionada
+    const handleEspecialidadChange = (e) => setNombre_Esp(e.target.value); 
 
     useEffect(() => {
         const fetchEspecialidades = async () => { // Corrige el nombre de la función
@@ -47,7 +47,7 @@ const ProfesorForm = () => {
             telefono,
             tipoProfesor,
             infoAdicional,
-            nombre_Esp // Incluye la especialidad seleccionada en los datos del profesor
+            nombre_Esp 
         };
 
         try {
@@ -72,7 +72,7 @@ const ProfesorForm = () => {
             setTelefono('');
             setTipoProfesor('interno');
             setInfoAdicional('');
-            setNombre_Esp(''); // Reinicia la especialidad seleccionada
+            setNombre_Esp(''); 
 
         } catch (error) {
             console.error('Error:', error);
