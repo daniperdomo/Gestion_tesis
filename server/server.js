@@ -76,7 +76,7 @@ app.post('/api/tutor_emp', (req, res) => {
 });
 
 app.post('/api/profesores', (req, res) => {
-    const { cedula_profesor, nombre_profesor, correo, telefono, tipoProfesor, infoAdicional } = req.body;
+    const { cedula_profesor, nombre_profesor, correo, telefono, tipoProfesor, infoAdicional, especialidades } = req.body;
 
     const request = new sql.Request();
     
@@ -102,7 +102,6 @@ app.post('/api/profesores', (req, res) => {
                     console.log("Error inserting internal professor:", error);
                     return res.status(500).json({ error: 'Error inserting internal professor' });
                 }
-                res.status(201).json({ message: 'Internal professor registered successfully' });
             });
         } else if (tipoProfesor === 'externo') {
             additionalRequest.input('institucion', sql.VarChar, infoAdicional);
@@ -111,9 +110,36 @@ app.post('/api/profesores', (req, res) => {
                     console.log("Error inserting external professor:", error);
                     return res.status(500).json({ error: 'Error inserting external professor' });
                 }
-                res.status(201).json({ message: 'External professor registered successfully' });
             });
         }
+
+        const insertEspecialidadesPromises = especialidades.map((especialidad) => {
+            return new Promise((resolve, reject) => {
+                if (especialidad) {
+                    const especialidadRequest = new sql.Request();
+                    especialidadRequest.input('codigo_esp', sql.Int, especialidad);
+                    especialidadRequest.input('cedula_profesor', sql.VarChar, cedula_profesor);
+                    especialidadRequest.query(`insert into Se_especializa (cedula_profesor, codigo_esp) values (@cedula_profesor, @codigo_esp)`, (error) => {
+                        if (error) {
+                            console.log("Error inserting into Se_especializa:", error);
+                            return reject(error);
+                        }
+                        resolve();
+                    });
+                } else {
+                    resolve();
+                }
+            });
+        });
+
+        Promise.all(insertEspecialidadesPromises)
+            .then(() => {
+                res.status(201).json({ message: 'Professor registered successfully' });
+            })
+            .catch((error) => {
+                console.log("Error inserting into Se_especializa:", error);
+                res.status(500).json({ error: 'Error inserting into Se_especializa' });
+            });
     });
 });
 

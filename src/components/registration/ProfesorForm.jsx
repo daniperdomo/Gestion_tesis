@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
-import '../../styles/estiloForm.css'
+import React, { useState, useEffect } from 'react';
+import '../../styles/estiloForm.css';
 
 const ProfesorForm = () => {
-    const [cedula_profesor, setCedula_profesor] = useState('');
-    const [nombre_profesor, setNombre_profesor] = useState('');
-    const [correo, setCorreo] = useState('');
-    const [telefono, setTelefono] = useState('');
-    const [tipoProfesor, setTipoProfesor] = useState('interno');
-    const [infoAdicional, setInfoAdicional] = useState('');
+    const [cedula_profesor, setCedula_profesor] = useState('')
+    const [nombre_profesor, setNombre_profesor] = useState('')
+    const [correo, setCorreo] = useState('')
+    const [telefono, setTelefono] = useState('')
+    const [tipoProfesor, setTipoProfesor] = useState('interno')
+    const [infoAdicional, setInfoAdicional] = useState('')
+    const [especialidades, setEspecialidades] = useState([])
+    const [especialidadesSeleccionadas, setEspecialidadesSeleccionadas] = useState([])
+    const [dropdowns, setDropdowns] = useState([0])
 
     const handleCedula_profesorChange = (e) => {
         setCedula_profesor(e.target.value);
@@ -33,6 +36,23 @@ const ProfesorForm = () => {
         setInfoAdicional(e.target.value);
     };
 
+    const handleEspecialidadChange = (index, value) => {
+        const newEspecialidades = [...especialidadesSeleccionadas];
+        newEspecialidades[index] = value;
+        setEspecialidadesSeleccionadas(newEspecialidades);
+    };
+
+    const addDropdown = () => {
+        setDropdowns([...dropdowns, dropdowns.length])
+    };
+
+    useEffect(() => {
+        fetch('http://localhost:8081/api/especialidades')
+            .then(response => response.json())
+            .then(data => setEspecialidades(data))
+            .catch(error => console.error('Error fetching especialidades:', error));
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -42,7 +62,8 @@ const ProfesorForm = () => {
             correo,
             telefono,
             tipoProfesor,
-            infoAdicional
+            infoAdicional,
+            especialidades: especialidadesSeleccionadas
         };
 
         try {
@@ -60,12 +81,15 @@ const ProfesorForm = () => {
 
             const result = await response.json();
             console.log('Profesor registrado:', result);
+            // Reset form fields
             setCedula_profesor('');
             setNombre_profesor('');
             setCorreo('');
             setTelefono('');
             setTipoProfesor('interno');
             setInfoAdicional('');
+            setEspecialidadesSeleccionadas([]);
+            setDropdowns([0]);
 
         } catch (error) {
             console.error('Error:', error);
@@ -74,40 +98,57 @@ const ProfesorForm = () => {
 
     return (
         <div className="form-container">
-            <form className="form" action='/api/profesores' method='post' onSubmit={handleSubmit}>
-                <label className="form-label">
-                    Cédula:
-                    <input type="text" value={cedula_profesor} onChange={handleCedula_profesorChange} className="form-input" maxLength={10}/>
-                </label>
-                <label className="form-label">
-                    Nombre:
-                    <input type="text" value={nombre_profesor} onChange={handleNombre_profesorChange} className="form-input" maxLength={70}/>
-                </label>
-                <label className="form-label">
-                    Correo:
-                    <input type="text" value={correo} onChange={handleCorreoChange} className="form-input" maxLength={30}/>
-                </label>
-                <label className="form-label">
-                    Teléfono:
-                    <input type="text" value={telefono} onChange={handleTelefonoChange} className="form-input" maxLength={20}/>
-                </label>
-                <label className="form-label">
-                    Tipo de Profesor:
+            <form className="form" onSubmit={handleSubmit}>
+                <div>
+                    <label className="form-label">Cédula:</label>
+                    <input type="text" value={cedula_profesor} onChange={handleCedula_profesorChange} className="form-input" maxLength={10} />
+                </div>
+                <div>
+                    <label className="form-label">Nombre:</label>
+                    <input type="text" value={nombre_profesor} onChange={handleNombre_profesorChange} className="form-input" maxLength={70} />
+                </div>
+                <div>
+                    <label className="form-label">Correo:</label>
+                    <input type="email" value={correo} onChange={handleCorreoChange} className="form-input" maxLength={50} />
+                </div>
+                <div>
+                    <label className="form-label">Teléfono:</label>
+                    <input type="text" value={telefono} onChange={handleTelefonoChange} className="form-input" maxLength={20} />
+                </div>
+                <div>
+                    <label className="form-label">Especialidades:</label>
+                    {dropdowns.map((index) => (
+                        <select key={index} className='form-input' onChange={(e) => handleEspecialidadChange(index, e.target.value)}>
+                            <option value="">Seleccione una especialidad</option>
+                            {especialidades.map((especialidad) => (
+                                <option key={especialidad.codigo_esp} value={especialidad.codigo_esp}>
+                                    {especialidad.nombre_esp}
+                                </option>
+                            ))}
+                        </select>
+                    ))}
+                    <button type="button" onClick={addDropdown} className="form-button">
+                        Agregar otra especialidad
+                    </button>
+                </div>
+                <br />
+                <div>
+                    <label className="form-label">Tipo de Profesor:</label>
                     <select value={tipoProfesor} onChange={handleTipoProfesorChange} className="form-input">
                         <option value="interno">Profesor Interno</option>
                         <option value="externo">Profesor Externo</option>
                     </select>
-                </label>
+                </div>
                 {tipoProfesor === 'interno' ? (
-                    <label className="form-label">
-                        Dirección:
-                        <input type="text" value={infoAdicional} onChange={handleInfoAdicionalChange} className="form-input" maxLength={50}/>
-                    </label>
+                    <div>
+                        <label className="form-label">Dirección:</label>
+                        <input type="text" value={infoAdicional} onChange={handleInfoAdicionalChange} className="form-input" maxLength={50} />
+                    </div>
                 ) : (
-                    <label className="form-label">
-                        Nombre de Institución:
-                        <input type="text" value={infoAdicional} onChange={handleInfoAdicionalChange} className="form-input" maxLength={30}/>
-                    </label>
+                    <div>
+                        <label className="form-label">Nombre de Institución:</label>
+                        <input type="text" value={infoAdicional} onChange={handleInfoAdicionalChange} className="form-input" maxLength={30} />
+                    </div>
                 )}
                 <button type="submit" className="form-button">
                     Registrar Profesor

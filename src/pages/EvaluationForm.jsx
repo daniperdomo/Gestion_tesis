@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../components/header';
-import Footer from '../components/footer';
 import RevisionExpForm from '../components/evaluation/RevisionExpForm'
 import RevisionInsForm from '../components/evaluation/RevisionInsForm'
 import EvaluacionExpForm from '../components/evaluation/EvaluacionExpForm'
@@ -31,7 +30,6 @@ const EvaluationForm = () => {
             ) : (
                 <Error404 />
             )}
-            <Footer/>
         </>
     );
 };

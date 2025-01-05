@@ -8,7 +8,6 @@ import ConsejoEscuelaForm from '../components/registration/consejoEscuelaForm';
 import PropuestaForm from '../components/registration/PropuestaForm'; 
 import Header from '../components/header';
 import Footer from '../components/footer';
-import SeEspecializaForm from '../components/registration/SeEspecializaForm';
 import EsJuradoForm from '../components/registration/EsJuradoForm';
 import EspecialidadForm from '../components/registration/especialidadForm';
 
@@ -21,7 +20,6 @@ const RegisterForm = () => {
         { type: 'tutor-empresarial', comp: <TutorEmpresarialForm /> },
         { type: 'consejo-escuela', comp: <ConsejoEscuelaForm /> },
         { type: 'propuesta', comp: <PropuestaForm /> },
-        { type: 'especializa', comp: <SeEspecializaForm /> },
         { type: 'jurado', comp: <EsJuradoForm /> },
         { type: 'especialidad', comp: <EspecialidadForm />}
     ];
