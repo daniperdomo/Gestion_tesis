@@ -6,6 +6,9 @@ const TutorEmpresarialForm = () => {
     const [nombre_tutorEmp, setNombre_tutorEmp] = useState('');
     const [telefono, setTelefono] = useState('');
     const [empresa, setEmpresa] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const handleCedula_tutorEmpChange = (e) => {
         setCedula_tutorEmp(e.target.value);
@@ -35,6 +38,8 @@ const TutorEmpresarialForm = () => {
             })
 
             if(response.ok){
+                setModalMessage('¡Tutor Empresarial registrado con éxito!');
+                setIsSuccess(true);
                 const message = await response.text();
                 console.log(message);
                 setCedula_tutorEmp('')
@@ -43,11 +48,19 @@ const TutorEmpresarialForm = () => {
                 setTelefono('')
             } else {
                 console.error('Error al registrar al tutor empresarial');
+                setModalMessage('Error al registrar al tutor empresarial. Inténtalo de nuevo.');
+                setIsSuccess(false);
             }
 
         } catch (error) {
             console.error('Error de red:', error);
+        } finally {
+            setModalVisible(true); // Mostrar el modal
         }
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
     };
 
     return (
@@ -62,6 +75,7 @@ const TutorEmpresarialForm = () => {
                     onChange={handleCedula_tutorEmpChange} 
                     className="form-input" 
                     maxLength={10}
+                    required
                 />
                 <label className="form-label">
                     Nombre del Tutor Empresarial:
@@ -72,6 +86,7 @@ const TutorEmpresarialForm = () => {
                     onChange={handleNombre_tutorEmpChange} 
                     className="form-input" 
                     maxLength={70}
+                    required
                 />
                 <label className="form-label">
                     Teléfono:
@@ -82,6 +97,7 @@ const TutorEmpresarialForm = () => {
                     onChange={handleTelefonoChange} 
                     className="form-input" 
                     maxLength={20}
+                    required
                 />
                 <label className="form-label">
                     Empresa:
@@ -92,11 +108,20 @@ const TutorEmpresarialForm = () => {
                     onChange={handleEmpresaChange} 
                     className="form-input" 
                     maxLength={30}
+                    required
                 />
                 <button type="submit" className="form-button">
                     Registrar Tutor Empresarial
                 </button>
             </form>
+            {modalVisible && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={closeModal}>&times;</span>
+                        <p style={{ color: isSuccess ? 'green' : 'red' }}>{modalMessage}</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

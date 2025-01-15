@@ -54,13 +54,12 @@ body {
 
 /* Asegúrate de que el footer no sea fijo ni absoluto */
 footer {
-    position: relative; /* Posición normal */
+    position: fixed; /* Posición normal */
     bottom: 0; /* Mantén en el fondo de su contenedor */
     width: 100%; /* Asegura que ocupe todo el ancho */
     background-color: #00003EE8; /* O el color que desees */
     color: white;
     text-align: center;
-    padding: 20px; /* Espaciado dentro del footer */
 }
 
 /* Para que el footer esté siempre al final si la página es más corta */

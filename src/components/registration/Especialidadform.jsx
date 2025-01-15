@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import '../../styles/estiloForm.css'
+import '../../styles/estiloForm.css';
 
 const EspecialidadForm = () => {
     const [nombre_esp, setNombre_esp] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+    const [isSuccess, setIsSuccess] = useState(false);
+
 
     const handleNombre_espChange = (e) => {
         setNombre_esp(e.target.value);
@@ -23,19 +27,31 @@ const EspecialidadForm = () => {
 
             if (response.ok) {
                 const message = await response.text();
-                console.log(message); 
-                setNombre_esp(''); 
+                console.log(message);
+                setModalMessage('¡Especialidad registrada con éxito!');
+                setIsSuccess(true);
+                setNombre_esp('');
             } else {
                 console.error('Error al registrar la especialidad');
+                setModalMessage('Error al registrar la especialidad. Inténtalo de nuevo.');
+                setIsSuccess(false);
             }
         } catch (error) {
             console.error('Error de red:', error);
+            setModalMessage('Error de red. Por favor, verifica tu conexión.');
+            setIsSuccess(false);
+        } finally {
+            setModalVisible(true); // Mostrar el modal
         }
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
     };
 
     return (
         <div className="form-container">
-            <form className="form" action='/api/especialidad' method='post' onSubmit={handleSubmit}>
+            <form className="form" onSubmit={handleSubmit}>
                 <label className="form-label">
                     Nombre de la especialidad:
                 </label>
@@ -45,11 +61,22 @@ const EspecialidadForm = () => {
                     onChange={handleNombre_espChange} 
                     className="form-input"
                     maxLength={30} 
+                    required
                 />
                 <button type="submit" className="form-button">
                     Registrar Especialidad
                 </button>
             </form>
+
+            {/* Modal */}
+            {modalVisible && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={closeModal}>&times;</span>
+                        <p style={{ color: isSuccess ? 'green' : 'red' }}>{modalMessage}</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

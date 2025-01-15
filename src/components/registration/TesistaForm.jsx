@@ -8,6 +8,9 @@ const TesistaForm = () => {
     const [correo_UCAB, setCorreo_UCAB] = useState('');
     const [correo_Particular, setCorreo_Particular] = useState('');
     const [intereses, setIntereses] = useState(['']);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const handleCedula_tesistaChange = (e) => {
         setCedula_tesista(e.target.value);
@@ -52,6 +55,8 @@ const TesistaForm = () => {
             });
 
             if (response.ok) {
+                setModalMessage('¡Tesista registrado con éxito!');
+                setIsSuccess(true);
                 const message = await response.text();
                 console.log(message);
                 setCedula_tesista('');
@@ -61,12 +66,20 @@ const TesistaForm = () => {
                 setNombre_tesista('');
                 setIntereses(['']);
             } else {
+                setModalMessage('Error al registrar al tesista. Inténtalo de nuevo.');
+                setIsSuccess(false);
                 console.error('Error al registrar al tesista');
             }
 
         } catch (error) {
             console.error('Error de red:', error);
+        } finally {
+            setModalVisible(true); // Mostrar el modal
         }
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
     };
 
     return (
@@ -74,23 +87,23 @@ const TesistaForm = () => {
             <form className="form" onSubmit={handleSubmit}>
                 <label className="form-label">
                     Cédula:
-                    <input type="text" value={cedula_tesista} onChange={handleCedula_tesistaChange} className="form-input" maxLength={10} />
+                    <input type="text" value={cedula_tesista} onChange={handleCedula_tesistaChange} className="form-input" maxLength={10} required/>
                 </label>
                 <label className="form-label">
                     Nombre:
-                    <input type="text" value={nombre_tesista} onChange={handleNombre_tesistaChange} className="form-input" maxLength={70} />
+                    <input type="text" value={nombre_tesista} onChange={handleNombre_tesistaChange} className="form-input" maxLength={70} required/>
                 </label>
                 <label className="form-label">
                     Teléfono:
-                    <input type="text" value={telefono} onChange={handleTelefonoChange} className="form-input" maxLength={20} />
+                    <input type="text" value={telefono} onChange={handleTelefonoChange} className="form-input" maxLength={20} required/>
                 </label>
                 <label className="form-label">
                     Correo UCAB:
-                    <input type="text" value={correo_UCAB} onChange={handleCorreo_UCABChange} className="form-input" maxLength={30} />
+                    <input type="text" value={correo_UCAB} onChange={handleCorreo_UCABChange} className="form-input" maxLength={30} required/>
                 </label>
                 <label className="form-label">
                     Correo Particular:
-                    <input type="text" value={correo_Particular} onChange={handleCorreo_ParticularChange} className="form-input" maxLength={30} />
+                    <input type="text" value={correo_Particular} onChange={handleCorreo_ParticularChange} className="form-input" maxLength={30} required/>
                 </label>
                 <div>
                     <label className="form-label">Intereses:</label>
@@ -113,6 +126,14 @@ const TesistaForm = () => {
                     Registrar Tesista
                 </button>
             </form>
+            {modalVisible && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={closeModal}>&times;</span>
+                        <p style={{ color: isSuccess ? 'green' : 'red' }}>{modalMessage}</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

@@ -133,12 +133,11 @@ create table Es_jurado(
 create table Evaluacion_tesista(
     codigo_prop int NOT NULL,
     cedula_tesista varchar(10) NOT NULL,
-    cedula_profesor varchar(10) NOT NULL,
+    cedula_jurado varchar(10) NOT NULL,
     codigo_ce int NOT NULL,
     nota decimal(18,2) NOT NULL,
-    PRIMARY KEY(codigo_prop, cedula_tesista, cedula_profesor, codigo_ce),
+    PRIMARY KEY(codigo_prop, cedula_tesista, cedula_jurado, codigo_ce),
     FOREIGN KEY (codigo_prop, cedula_tesista) REFERENCES Proponen(codigo_prop, cedula_tesista),
-    FOREIGN KEY (cedula_profesor) REFERENCES Profesores(cedula_profesor),
     FOREIGN KEY (codigo_ce) REFERENCES Criterios_evaluacion(codigo_ce)
 );
 

@@ -39,6 +39,9 @@ const Header = () => {
                             <li>
                                 <Link to="/evaluation" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Evaluar</Link>
                             </li>
+                            <li>
+                                <Link to="/calificaciones" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Calificaciones</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -52,6 +55,9 @@ const Header = () => {
                         </li>
                         <li>
                             <Link to="/evaluation" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Evaluar</Link>
+                        </li>
+                        <li>
+                            <Link to="/calificaciones" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Calificaciones</Link>
                         </li>
                     </ul>
                 </div>

@@ -489,10 +489,88 @@ app.get('/api/criterios_revision/ins', (req, res) => {
     })
 })
 
-app.post('/api/evaluacion/prop', async (req, res) => {
+app.get('/api/criterios_evaluacion/ins', (req, res) => {
+    const request = new sql.Request()
+    request.query(`
+        select codigo_ce, nombre_ce, puntaje_max
+        from Criterios_evaluacion
+        where tipo = 'I'
+    `, (error, result) => {
+        if (error) {
+            console.log("Error fetching criterios_evaluacion I", error);
+            return res.status(500).json({ error: 'Error fetching criterios_evaluacion I' });
+        }
+        res.json(result.recordset);
+    })
+})
+
+app.get('/api/criterios_evaluacion/exp', (req, res) => {
+    const request = new sql.Request()
+    request.query(`
+        select codigo_ce, nombre_ce, puntaje_max
+        from Criterios_evaluacion
+        where tipo = 'E'
+    `, (error, result) => {
+        if (error) {
+            console.log("Error fetching criterios_evaluacion E", error);
+            return res.status(500).json({ error: 'Error fetching criterios_evaluacion E' });
+        }
+        res.json(result.recordset);
+    })
+})
+
+app.get('/api/criterios_evaluacion/ins-t', (req, res) => {
+    const request = new sql.Request()
+    request.query(`
+        select codigo_ce, nombre_ce, puntaje_max
+        from Criterios_evaluacion
+        where tipo = 'I_T'
+    `, (error, result) => {
+        if (error) {
+            console.log("Error fetching criterios_evaluacion I_T", error);
+            return res.status(500).json({ error: 'Error fetching criterios_evaluacion I_T' });
+        }
+        res.json(result.recordset);
+    })
+})
+
+app.get('/api/es_jurado/:codigo_prop', (req, res) => {
+    const codigo_prop = req.params.codigo_prop;
+    const request = new sql.Request();
+    request.input('codigo_prop', sql.Int, codigo_prop)
+    request.query(`
+            select cedula_profesor, nombre_profesor
+            from profesores
+            where cedula_profesor in (select cedula_profesor from Es_jurado where codigo_prop = @codigo_prop)
+        `, (error, result) => {
+        if (error) {
+            console.log("Error fetching jurado", error);
+            return res.status(500).json({ error: 'Error fetching jurado' });
+        }
+        res.json(result.recordset);
+    })
+})
+
+app.get('/api/tutorEmp/:codigo_prop', (req, res) => {
+    const codigo_prop = req.params.codigo_prop;
+    const request = new sql.Request();
+    request.input('codigo_prop', sql.Int, codigo_prop)
+    request.query(`
+        select cedula_tutorEmp, nombre_tutorEmp
+        from tutores_emp
+        where cedula_tutorEmp = (select cedula_tutorEmp from instrumentales where codigo_prop = @codigo_prop)
+        `, (error, result) => {
+            if (error) {
+                console.log("Error fetching tutor", error);
+                return res.status(500).json({ error: 'Error fetching tutor' });
+            }
+            res.json(result.recordset);
+        })
+})
+
+app.post('/api/evaluacion/prop',  (req, res) => {
     const evaluaciones = req.body;
 
-    // Validación de datos de entrada
     if (!Array.isArray(evaluaciones) || evaluaciones.length === 0) {
         return res.status(400).json({ error: 'Faltan evaluaciones' });
     }
@@ -511,7 +589,7 @@ app.post('/api/evaluacion/prop', async (req, res) => {
             request.input('codigo_cr', sql.Int, codigo_cr);
             request.input('nota', sql.Int, nota); // Usamos Int para 1 o 0
 
-            await request.query(`
+             request.query(`
                 insert into Evaluacion_prop (codigo_prop, codigo_cr, nota)
                 values (@codigo_prop, @codigo_cr, @nota);
             `);
@@ -523,6 +601,53 @@ app.post('/api/evaluacion/prop', async (req, res) => {
         res.status(500).json({ error: 'Error al registrar las evaluaciones' });
     }
 });
+
+app.post('/api/evaluacion_tesista', async (req, res) => {
+    const evaluaciones = req.body;
+
+    try {
+        for (const evaluacion of evaluaciones) {
+            const request = new sql.Request();
+    
+            const query = `
+                INSERT INTO Evaluacion_tesista (codigo_prop, cedula_tesista, cedula_jurado, codigo_ce, nota)
+                VALUES (@codigo_prop, @cedula_tesista, @cedula_jurado, @codigo_ce, @nota)
+            `;
+            request.input('codigo_prop', sql.Int, evaluacion.codigo_prop);
+            request.input('cedula_tesista', sql.VarChar(10), evaluacion.cedula_tesista);
+            request.input('cedula_jurado', sql.VarChar(10), evaluacion.cedula_jurado);
+            request.input('codigo_ce', sql.Int, evaluacion.codigo_ce);
+            request.input('nota', sql.Decimal(18, 2), evaluacion.nota);
+
+            // Esperar a que la consulta se complete
+            await request.query(query);
+        }
+
+        res.status(201).json({ message: 'Evaluations registered successfully' });
+    } catch (err) {
+        console.error('Error inserting evaluations:', err);
+        res.status(500).json({ error: 'Error inserting evaluations' });
+    }
+});
+
+app.get('/api/calificaciones/:codigo_prop', (req, res) => {
+    const codigo_prop = req.params.codigo_prop;
+    const request = new sql.Request();
+    request.input('codigo_prop', sql.Int, codigo_prop)
+    request.query(`
+            select t.cedula_tesista, t.nombre_tesista, sum(e.nota) as suma_notas
+            from Evaluacion_tesista e
+            join Tesistas t on t.cedula_tesista = e.cedula_tesista
+            where e.codigo_prop = @codigo_prop
+            group by t.cedula_tesista, t.nombre_tesista
+        `, (error, result) => {
+            if (error) {
+                console.log("Error fetching calificaciones", error);
+                return res.status(500).json({ error: 'Error fetching calificaciones' });
+            }
+            res.json(result.recordset);
+        })
+})
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 

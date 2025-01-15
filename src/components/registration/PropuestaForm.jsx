@@ -24,6 +24,9 @@ const PropuestaForm = () => {
     const [tesistas, setTesistas] = useState([]);
     const [cedula_tesista1, setCedula_tesista1] = useState('');
     const [cedula_tesista2, setCedula_tesista2] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+    const [isSuccess, setIsSuccess] = useState(false);
 
     // Funciones para manejar los cambios en los campos de entrada
     const handleTituloChange = (e) => setTitulo(e.target.value);
@@ -103,6 +106,8 @@ const PropuestaForm = () => {
             });
 
             if (response.ok) {
+                setModalMessage('¡Propuesta registrada con éxito!');
+                setIsSuccess(true);
                 const result = await response.json();
                 console.log('Propuesta registrada:', result);
                 setTitulo('');
@@ -120,19 +125,23 @@ const PropuestaForm = () => {
                 setRes_revision('PAR');
                 setTipoPropuesta('Experimental');
                 setCedula_tutorEmp('');
-                setProfesores([]);
-                setConsejos([]);
-                setTutoresEmp([]);
-                setTesistas([]);
                 setCedula_tesista1('');
                 setCedula_tesista2('');
             } else {
                 const errorData = await response.json();
                 console.error('Error al registrar la propuesta:', errorData);
+                setModalMessage('Error al registrar la propuesta. Inténtalo de nuevo.');
+                setIsSuccess(false);
             }
         } catch (error) {
             console.error('Error en la solicitud:', error);
+        } finally {
+            setModalVisible(true)
         }
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
     };
 
     return (
@@ -262,6 +271,14 @@ const PropuestaForm = () => {
                 </div>
                 <button className="form-button" type="submit">Registrar Propuesta</button>
             </form>
+            {modalVisible && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={closeModal}>&times;</span>
+                        <p style={{ color: isSuccess ? 'green' : 'red' }}>{modalMessage}</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

@@ -9,6 +9,9 @@ const RevisionExpForm = () => {
     const [profesorT, setProfesorT] = useState(null);
     const [criterios, setCriterios] = useState([]);
     const [evaluaciones, setEvaluaciones] = useState({});
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+    const [isSuccess, setIsSuccess] = useState(false);
 
     useEffect(() => {
         fetch('http://localhost:8081/api/propuestas/exp')
@@ -68,16 +71,26 @@ const RevisionExpForm = () => {
             });
 
             if (response.ok) {
+                setModalMessage('¡Revisión registrada con éxito!');
+                setIsSuccess(true);
                 const result = await response.json();
                 console.log('Evaluaciones registradas:', result);
                 
             } else {
+                setModalMessage('Error al registrar la revisión. Inténtalo de nuevo.');
+                setIsSuccess(false);
                 const errorData = await response.json();
                 console.error('Error al registrar las evaluaciones:', errorData);
             }
         } catch (error) {
             console.error('Error en la solicitud:', error);
+        } finally {
+            setModalVisible(true); // Mostrar el modal
         }
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
     };
 
     return (
@@ -90,7 +103,7 @@ const RevisionExpForm = () => {
                     </div>
                     <div>
                         <label className="form-label">Organización donde se desarrollará el T. E. G.</label>
-                        <input type="text" className="form-input" />
+                        <input type="text" className="form-input" required/>
                     </div>
                     <div>
                         <label className="form-label">Criterios de Evaluación</label>
@@ -214,6 +227,14 @@ const RevisionExpForm = () => {
                         </select>
                     </div>
                 </form>
+            )}
+            {modalVisible && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={closeModal}>&times;</span>
+                        <p style={{ color: isSuccess ? 'green' : 'red' }}>{modalMessage}</p>
+                    </div>
+                </div>
             )}
         </div>
     );

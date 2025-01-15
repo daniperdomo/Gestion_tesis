@@ -6,6 +6,9 @@ const EsJuradoForm = () => {
     const [propuestas, setPropuestas] = useState([]);
     const [selectedProfesor, setSelectedProfesor] = useState('');
     const [selectedPropuesta, setSelectedPropuesta] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+    const [isSuccess, setIsSuccess] = useState(false);
 
     useEffect(() => {
         // Fetch profesores
@@ -38,14 +41,21 @@ const EsJuradoForm = () => {
         })
         .then(response => {
             if (response.ok) {
-                alert('Datos registrados exitosamente');
+                setModalMessage('¡Jurado registrado con éxito!');
+                setIsSuccess(true);
                 setSelectedProfesor('');
                 setSelectedPropuesta('');
             } else {
-                alert('Error al registrar los datos');
-            }
+                setModalMessage('Error al registrar el jurado. Inténtalo de nuevo.');
+                setIsSuccess(false);
+            } 
+            setModalVisible(true)
         })
         .catch(error => console.error('Error submitting form:', error));
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
     };
 
     return (
@@ -83,6 +93,15 @@ const EsJuradoForm = () => {
 
                 <button type="submit" className="form-button">Registrar</button>
             </form>
+            
+            {modalVisible && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={closeModal}>&times;</span>
+                        <p style={{ color: isSuccess ? 'green' : 'red' }}>{modalMessage}</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
