@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/estiloForm.css';
+import './calificaciones.css'; // Asegúrate de importar el archivo CSS
 import Header from '../components/header';
 import Footer from '../components/footer';
 
@@ -57,12 +57,12 @@ const Calificaciones = () => {
     return (
         <>
             <Header />
-            <div className="form-container">
+            <div className="calificaciones-container">
                 {codigo_prop ? (
                     <div>
                         <label className="form-label">Datos Tesista:</label>
                         {tesistas.length > 0 ? (
-                            <table className="table">
+                            <table className="calificaciones-table">
                                 <thead>
                                     <tr>
                                         <th>Cédula</th>
@@ -81,11 +81,11 @@ const Calificaciones = () => {
                                 </tbody>
                             </table>
                         ) : (
-                            <p>No se han hecho evaluaciones en esta propuesta.</p> // Mensaje cuando no hay tesistas
+                            <p>No se han hecho evaluaciones en esta propuesta.</p>
                         )}
                     </div>
                 ) : (
-                    <form className="form">
+                    <form className="formulario">
                         <div>
                             <label className="form-label">Propuesta</label>
                             <select className="form-input" value={codigo_prop} onChange={(e) => handleSelectPropuesta(e.target.value)}>

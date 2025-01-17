@@ -108,24 +108,35 @@ const ProfesorForm = () => {
         setModalVisible(false);
     };
 
+    const handleClear = () => {
+        setCedula_profesor('');
+        setNombre_profesor('');
+        setCorreo('');
+        setTelefono('');
+        setTipoProfesor('interno');
+        setInfoAdicional('');
+        setEspecialidadesSeleccionadas([]);
+        setDropdowns([0]);
+    };
+
     return (
         <div className="form-container">
             <form className="form" onSubmit={handleSubmit}>
                 <div>
                     <label className="form-label">Cédula:</label>
-                    <input type="text" value={cedula_profesor} onChange={handleCedula_profesorChange} className="form-input" maxLength={10} required/>
+                    <input type="text" value={cedula_profesor} onChange={handleCedula_profesorChange} className="form-input" maxLength={10} required />
                 </div>
                 <div>
                     <label className="form-label">Nombre:</label>
-                    <input type="text" value={nombre_profesor} onChange={handleNombre_profesorChange} className="form-input" maxLength={70} required/>
+                    <input type="text" value={nombre_profesor} onChange={handleNombre_profesorChange} className="form-input" maxLength={70} required />
                 </div>
                 <div>
                     <label className="form-label">Correo:</label>
-                    <input type="email" value={correo} onChange={handleCorreoChange} className="form-input" maxLength={50} required/>
+                    <input type="email" value={correo} onChange={handleCorreoChange} className="form-input" maxLength={50} required />
                 </div>
                 <div>
                     <label className="form-label">Teléfono:</label>
-                    <input type="text" value={telefono} onChange={handleTelefonoChange} className="form-input" maxLength={20} required/>
+                    <input type="text" value={telefono} onChange={handleTelefonoChange} className="form-input" maxLength={20} required />
                 </div>
                 <div>
                     <label className="form-label">Especialidades:</label>
@@ -154,16 +165,19 @@ const ProfesorForm = () => {
                 {tipoProfesor === 'interno' ? (
                     <div>
                         <label className="form-label">Dirección:</label>
-                        <input type="text" value={infoAdicional} onChange={handleInfoAdicionalChange} className="form-input" maxLength={50} required/>
+                        <input type="text" value={infoAdicional} onChange={handleInfoAdicionalChange} className="form-input" maxLength={50} required />
                     </div>
                 ) : (
                     <div>
                         <label className="form-label">Nombre de Institución:</label>
-                        <input type="text" value={infoAdicional} onChange={handleInfoAdicionalChange} className="form-input" maxLength={30} required/>
+                        <input type="text" value={infoAdicional} onChange={handleInfoAdicionalChange} className="form-input" maxLength={30} required />
                     </div>
                 )}
                 <button type="submit" className="form-button">
                     Registrar Profesor
+                </button>
+                <button type="button" onClick={handleClear} className="form-button-clear">
+                    Limpiar Campos
                 </button>
             </form>
             {modalVisible && (

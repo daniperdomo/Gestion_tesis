@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/estiloForm.css'
 
 const PropuestaForm = () => {
-    // Estado para almacenar los valores del formulario
     const [titulo, setTitulo] = useState('');
     const [f_pres_comite, setF_pres_comite] = useState('');
     const [resultado_comite, setResultado_comite] = useState('Aprobado');
@@ -144,6 +143,26 @@ const PropuestaForm = () => {
         setModalVisible(false);
     };
 
+    const handleClear = () => {
+        setTitulo('');
+        setF_pres_comite('');
+        setResultado_comite('Aprobado');
+        setObserv_comite('');
+        setF_ent_escuela('');
+        setFecha_defensa('');
+        setNro_consejo('');
+        setRes_consejo('Aprobado');
+        setCom_consejo('');
+        setCedula_profesorT('');
+        setCedula_profesorR('');
+        setFecha_revision('');
+        setRes_revision('PAR');
+        setTipoPropuesta('Experimental');
+        setCedula_tutorEmp('');
+        setCedula_tesista1('');
+        setCedula_tesista2('');
+    };
+
     return (
         <div className="form-container">
             <form className="form" onSubmit={handleSubmit}>
@@ -210,7 +229,7 @@ const PropuestaForm = () => {
                 <div>
                     <label className="form-label">Profesor Revisor:</label>
                     <select className="form-input" value={cedula_profesorR} onChange={handleCedula_profesorRChange} required>
-                        <option value="">Seleccione un profesor</ option>
+                        <option value="">Seleccione un profesor</option>
                         {profesores.map((profesor) => (
                             <option key={profesor.cedula_profesor} value={profesor.cedula_profesor}>
                                 {`${profesor.cedula_profesor} - ${profesor.nombre_profesor}`}
@@ -252,7 +271,7 @@ const PropuestaForm = () => {
                 <div>
                     <label className="form-label">Tesista/s:</label>
                     <select className="form-input" value={cedula_tesista1} onChange={(e) => setCedula_tesista1(e.target.value)} required>
-                        <option value="">Selecciona un tesista </option>
+                        <option value="">Selecciona un tesista</option>
                         {tesistas.map(tesista => (
                             <option key={tesista.cedula_tesista} value={tesista.cedula_tesista}>
                                 {`${tesista.cedula_tesista} - ${tesista.nombre_tesista}`}
@@ -270,6 +289,7 @@ const PropuestaForm = () => {
                     </select>
                 </div>
                 <button className="form-button" type="submit">Registrar Propuesta</button>
+                <button type="button" onClick={handleClear} className="form-button-clear">Limpiar Campos</button>
             </form>
             {modalVisible && (
                 <div className="modal">

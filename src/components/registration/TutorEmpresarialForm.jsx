@@ -63,6 +63,13 @@ const TutorEmpresarialForm = () => {
         setModalVisible(false);
     };
 
+    const handleClear = () => {
+        setCedula_tutorEmp('');
+        setNombre_tutorEmp('');
+        setTelefono('');
+        setEmpresa('');
+    };
+
     return (
         <div className="form-container">
             <form className="form" onSubmit={handleSubmit}>
@@ -112,6 +119,9 @@ const TutorEmpresarialForm = () => {
                 />
                 <button type="submit" className="form-button">
                     Registrar Tutor Empresarial
+                </button>
+                <button type="button" onClick={handleClear} className="form-button-clear">
+                    Limpiar Campos
                 </button>
             </form>
             {modalVisible && (

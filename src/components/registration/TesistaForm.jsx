@@ -12,25 +12,11 @@ const TesistaForm = () => {
     const [modalMessage, setModalMessage] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
 
-    const handleCedula_tesistaChange = (e) => {
-        setCedula_tesista(e.target.value);
-    };
-
-    const handleNombre_tesistaChange = (e) => {
-        setNombre_tesista(e.target.value);
-    };
-
-    const handleTelefonoChange = (e) => {
-        setTelefono(e.target.value);
-    };
-
-    const handleCorreo_UCABChange = (e) => {
-        setCorreo_UCAB(e.target.value);
-    };
-
-    const handleCorreo_ParticularChange = (e) => {
-        setCorreo_Particular(e.target.value);
-    };
+    const handleCedula_tesistaChange = (e) => setCedula_tesista(e.target.value);
+    const handleNombre_tesistaChange = (e) => setNombre_tesista(e.target.value);
+    const handleTelefonoChange = (e) => setTelefono(e.target.value);
+    const handleCorreo_UCABChange = (e) => setCorreo_UCAB(e.target.value);
+    const handleCorreo_ParticularChange = (e) => setCorreo_Particular(e.target.value);
 
     const handleInteresChange = (index, value) => {
         const newIntereses = [...intereses];
@@ -38,9 +24,7 @@ const TesistaForm = () => {
         setIntereses(newIntereses);
     };
 
-    const addInteres = () => {
-        setIntereses([...intereses, '']); 
-    };
+    const addInteres = () => setIntereses([...intereses, '']);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -59,12 +43,7 @@ const TesistaForm = () => {
                 setIsSuccess(true);
                 const message = await response.text();
                 console.log(message);
-                setCedula_tesista('');
-                setCorreo_Particular('');
-                setCorreo_UCAB('');
-                setTelefono('');
-                setNombre_tesista('');
-                setIntereses(['']);
+                clearForm(); // Limpiar el formulario después del éxito
             } else {
                 setModalMessage('Error al registrar al tesista. Inténtalo de nuevo.');
                 setIsSuccess(false);
@@ -78,8 +57,29 @@ const TesistaForm = () => {
         }
     };
 
+    // Función para limpiar el formulario
+    const handleClear = () => {
+        setCedula_tesista('');
+        setNombre_tesista('');
+        setTelefono('');
+        setCorreo_UCAB('');
+        setCorreo_Particular('');
+        setIntereses(['']);
+    };
+
+    // Función para cerrar el modal
     const closeModal = () => {
         setModalVisible(false);
+    };
+
+    // Función para limpiar el formulario
+    const clearForm = () => {
+        setCedula_tesista('');
+        setNombre_tesista('');
+        setTelefono('');
+        setCorreo_UCAB('');
+        setCorreo_Particular('');
+        setIntereses(['']);
     };
 
     return (
@@ -121,11 +121,15 @@ const TesistaForm = () => {
                         Agregar otro interés
                     </button>
                 </div>
-                <br/>
+                <br />
                 <button type="submit" className="form-button">
                     Registrar Tesista
                 </button>
+                <button type="button" onClick={handleClear} className="form-button-clear">
+                    Limpiar
+                </button>
             </form>
+
             {modalVisible && (
                 <div className="modal">
                     <div className="modal-content">

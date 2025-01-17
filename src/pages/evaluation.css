@@ -1,0 +1,99 @@
+/* evaluation.css */
+
+/* Fondo personalizado */
+.custom-background {
+    background-image: url('C:\Users\Emilio\Gestion_tesis\src\assets\images\imagenini.jpg'); /* Asegúrate de que la ruta sea correcta */
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* Asegura que el fondo ocupe toda la pantalla */
+    background-attachment: fixed; /* Mantiene el fondo fijo mientras se hace scroll */
+    display: flex;
+    align-items: flex-start; /* Alinea el contenido hacia la parte superior */
+    justify-content: center;
+    padding-top: 2rem; /* Espaciado desde la parte superior */
+}
+
+/* Título */
+.custom-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: black; /* Color del título */
+    text-align: center;
+    margin-bottom: 2rem;
+    width: 100%; /* Asegura que el título ocupe todo el ancho disponible */
+}
+
+/* Estilo para las tarjetas */
+.custom-card {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    overflow: hidden; /* Asegura que las sombras no se desborden */
+    transform: scale(0.98); /* Efecto de zoom inicial */
+}
+
+.custom-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+    transform: scale(1); /* El efecto de zoom se activa en hover */
+}
+
+/* Estilo para los títulos de las tarjetas */
+.custom-card h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #1e40af;
+}
+
+/* Descripción de las tarjetas */
+.custom-card p {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+/* Efecto para las imágenes dentro de las tarjetas */
+.custom-card img {
+    max-width: 100%;
+    border-radius: 0.75rem;
+    object-fit: cover;
+    height: 150px; /* Altura controlada para la imagen */
+    transition: transform 0.3s ease;
+}
+
+/* Efecto hover en la imagen */
+.custom-card img:hover {
+    transform: scale(1.1); /* Efecto de escala en la imagen */
+}
+
+/* Estilo del botón */
+.custom-button {
+    background-color: #00003EE8;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.custom-button:hover {
+    background-color: #2563eb;
+    transform: translateY(-3px); /* El botón se eleva un poco al hacer hover */
+}
+
+/* Estilo para el contenedor de las opciones */
+.custom-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Diseño responsive */
+    gap: 1rem;
+    padding: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}

@@ -1,0 +1,103 @@
+/* calificaciones.css */
+
+/* Fondo personalizado */
+.calificaciones-container {
+    background-image: url('C:\Users\Emilio\Gestion_tesis\src\assets\images\imagenini.jpg'); /* Ruta desde la carpeta public */
+    background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+    background-position: center; /* Centra la imagen */
+    background-attachment: fixed; /* Mantiene el fondo fijo mientras se hace scroll */
+    height: 100vh; /* Hace que el fondo ocupe toda la pantalla */
+    width: 100%; /* Hace que ocupe todo el ancho */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2rem; /* Espaciado desde la parte superior */
+    padding-bottom: 2rem;
+}
+
+/* Estilo del formulario */
+.formulario {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo de las etiquetas y los campos de entrada */
+.form-label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 0.5rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ddd;
+    margin-bottom: 1rem;
+}
+
+/* Estilo de la tabla */
+.calificaciones-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.calificaciones-table th, .calificaciones-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.calificaciones-table th {
+    background-color: #1e40af;
+    color: white;
+}
+
+.calificaciones-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Efecto hover en la tabla */
+.calificaciones-table tbody tr:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+/* Estilo del botón */
+.calificaciones-button {
+    background-color: #00003EE8;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.calificaciones-button:hover {
+    background-color: #2563eb;
+    transform: translateY(-3px); /* El botón se eleva un poco al hacer hover */
+}
+
+/* Estilo para el contenedor del formulario */
+.calificaciones-container {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

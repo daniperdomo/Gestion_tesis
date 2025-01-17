@@ -1,74 +1,136 @@
-.form-container {
-    max-width: 550px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+/* Estilo para el contenedor del formulario */
+.form-container { 
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
+.form-container:hover {
+    transform: scale(1.02); /* Efecto ligero de escala al pasar el ratón */
+}
+
+/* Estilo para el formulario */
 .form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
+/* Estilo para las etiquetas */
 .form-label {
-    margin-bottom: 5px;
-    font-weight: bold;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
 }
 
+/* Estilo para los campos de entrada */
 .form-input {
-    padding: 8px;
-    margin-bottom: 10px;
+    padding: 12px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 5px;
     width: 100%;
     box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+.form-input:focus {
+    border-color: #00003EE8; /* Cambio de borde al enfocarse */
+    box-shadow: 0 0 8px rgba(0, 48, 232, 0.5); /* Resalta el campo */
+    outline: none;
+}
+
+/* Estilo para los botones */
 .form-button {
     background-color: #00003EE8;
     color: white;
-    padding: 10px;
+    padding: 14px 30px; /* Aumenté el padding para hacerlos más largos */
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 100%; /* Los hace ocupar todo el ancho disponible */
 }
 
 .form-button:hover {
     background-color: #2563EB;
+    transform: translateY(-2px); /* Efecto de elevación en hover */
 }
 
-.table-container {
-    max-width: 600px; 
-    margin: 20px auto; 
-    border: 1px solid #ccc;
+.form-button:active {
+    transform: translateY(0); /* Vuelve a la posición original cuando se presiona */
+}
+
+/* Estilo para el botón de limpiar */
+.form-button-clear {
+    background-color: #FF6347; /* Rojo */
+    color: white;
+    padding: 14px 30px; /* Aumenté el padding para hacerlos más largos */
+    border: none;
     border-radius: 5px;
-    background-color: #f9f9f9; 
-    overflow: hidden;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 100%; /* Los hace ocupar todo el ancho disponible */
 }
 
+.form-button-clear:hover {
+    background-color: #FF4500; /* Rojo más oscuro */
+    transform: translateY(-2px);
+}
+
+.form-button-clear:active {
+    transform: translateY(0); /* Vuelve a la posición original cuando se presiona */
+}
+
+/* Estilo para el contenedor de la tabla */
+.table-container {
+    max-width: 800px; 
+    margin: 20px auto; 
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo de la tabla */
 .table {
     width: 100%;
     border-collapse: collapse; 
 }
 
 .table th, .table td {
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 12px;
+    border: 1px solid #ddd;
     text-align: left;
+    font-size: 1rem;
 }
 
 .table th {
     background-color: #00003EE8;
     color: white;
-    font-weight: bold; 
+    font-weight: 600;
 }
 
 .table tr:nth-child(even) {
-    background-color: #f2f2f2; 
+    background-color: #f9f9f9; 
 }
 
+.table tr:hover {
+    background-color: #f2f2f2; /* Efecto hover en filas */
+}
+
+/* Estilo para el modal */
 .modal {
     display: flex; 
     position: fixed; 
@@ -81,27 +143,30 @@
     background-color: rgba(0, 0, 0, 0.7); 
     justify-content: center;
     align-items: center;
+    animation: fadeInModal 0.3s ease;
 }
 
+/* Contenido del modal */
 .modal-content {
     background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    width: 300px; 
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 400px; 
     text-align: center;
-    animation: fadeIn 0.3s;
+    animation: fadeIn 0.3s ease;
 }
 
-@keyframes fadeIn {
+/* Animación de aparición del modal */
+@keyframes fadeInModal {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
+/* Estilo para el botón de cerrar el modal */
 .close {
     color: #aaa;
-    float: right;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
     cursor: pointer;
 }
@@ -111,7 +176,15 @@
     color: #000;
 }
 
+/* Estilo del texto en el modal */
 .modal-content p {
-    font-size: 16px;
-    margin: 10px 0;
+    font-size: 1rem;
+    margin: 20px 0;
+    color: #333;
+}
+
+/* Estilo para la animación de fade-in del modal */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }

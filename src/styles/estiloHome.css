@@ -1,181 +1,135 @@
-/* Home.css */
-
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
-}
-
-.home-container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
-}
-
-.home-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #00003EE8; /* Azul atractivo */
-    margin-bottom: 20px;
-}
-
-.home-paragraph {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #555;
-    margin-bottom: 20px;
-    text-align: justify;
-}
-
-.home-paragraph:last-child {
-    margin-bottom: 0;
-}
-
-@media (max-width: 768px) {
-    .home-container {
-        margin: 20px;
-        padding: 15px;
-    }
-
-    .home-title {
-        font-size: 2rem;
-    }
-
-    .home-paragraph {
-        font-size: 1rem;
-    }
-}
-
-/* Asegúrate de que el footer no sea fijo ni absoluto */
-footer {
-    position: fixed; /* Posición normal */
-    bottom: 0; /* Mantén en el fondo de su contenedor */
-    width: 100%; /* Asegura que ocupe todo el ancho */
-    background-color: #00003EE8; /* O el color que desees */
-    color: white;
-    text-align: center;
-}
-
-/* Para que el footer esté siempre al final si la página es más corta */
+/* Estilos Generales */
 html, body {
-    height: 100%;
+    height: 100%;          /* Asegura que el cuerpo ocupe el 100% de la altura de la ventana */
+    overflow: auto;        /* Permite el desplazamiento vertical */
     margin: 0;
     padding: 0;
-}
-
-#root {
-    display: flex;
-    flex-direction: column;
-    min-height: 100%; /* Asegura que el contenedor principal ocupe toda la altura */
-}
-
-.home-container {
-    flex: 1; /* Permite que el contenido principal ocupe todo el espacio disponible */
-}
-
-/* General Styles */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
     color: #333;
 }
 
-/* Container */
 .home-container {
-    text-align: center;
+    min-height: 100vh;      /* Asegura que el contenedor tenga al menos la altura de la pantalla */
+    margin-top: 50px;
+    background-image: url('C:\Users\Emilio\Gestion_tesis\src\assets\images\imagenini.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 40px;
+    animation: fadeInContainer 2s ease-out forwards; /* Añadida animación */
 }
 
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(135deg, #00796b, #004d40);
+    background-color: rgba(30, 64, 175, 0.8); /* Azul con opacidad */
     color: white;
-    padding: 60px 20px;
+    text-align: center;
+    padding: 100px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeInTitle 2s ease-out forwards; /* También mantiene el efecto del título */
 }
 
 .hero-title {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
 .hero-subtitle {
-    font-size: 1.5rem;
-    line-height: 1.8;
-    max-width: 800px;
-    margin: 0 auto;
+    font-size: 1.2rem;
+    margin-top: 0;
 }
 
-/* ODS Section */
+/* About ODS Section */
 .ods-section {
     padding: 40px 20px;
-    background-color: #ffffff;
+    background-color: #fff;
+    text-align: center;
+    margin-top: 40px;
+    border-radius: 8px;
 }
 
 .section-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
-    color: #00796b;
     margin-bottom: 20px;
+    color: #1e40af;
 }
 
 .section-description {
     font-size: 1.2rem;
+    margin-bottom: 40px;
     color: #555;
-    max-width: 800px;
-    margin: 0 auto 40px;
 }
 
+/* ODS Cards */
 .ods-cards {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    justify-content: center; /* Centrado de las tarjetas */
     gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
 .ods-card {
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 300px; /* Tamaño fijo de la tarjeta */
+    height: 350px; /* Altura fija para igualar las tarjetas */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     padding: 20px;
-    text-align: center;
-    max-width: 300px;
-    transition: transform 0.3s ease;
-}
-
-.ods-card:hover {
-    transform: translateY(-10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease; /* Añadido para la transición */
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
 }
 
 .ods-card img {
-    width: 300px;
-    height: 80px;
-    margin-bottom: 15px;
+    max-width: 100%;
+    height: 150px; /* Altura fija para las imágenes */
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .ods-card h3 {
-    font-size: 1.5rem;
-    color: #00796b;
-    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
 }
 
 .ods-card p {
-    font-size: 1rem;
-    color: #555;
+    font-size: 14px;
+    margin-top: 10px;
+    flex-grow: 1; /* Hace que el contenido se ajuste dentro de la tarjeta */
 }
 
-/* CTA Section */
+.ods-card:hover {
+    transform: translateY(-10px); /* Elevación de la tarjeta */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Sombra más profunda */
+    opacity: 0.9; /* Leve disminución de opacidad */
+}
+
+.ods-card a {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+}
+
+/* Call to Action Section */
 .cta-section {
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #004d40, #00796b);
+    background-color: #1e40af;
     color: white;
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 8px;
+    margin-top: 40px;
 }
 
 .cta-title {
@@ -186,23 +140,43 @@ body {
 
 .cta-description {
     font-size: 1.2rem;
-    max-width: 800px;
-    margin: 0 auto 30px;
+    margin-top: 0;
 }
 
-.cta-button {
-    background-color: #ffffff;
-    color: #00796b;
-    padding: 15px 30px;
+/* Footer */
+footer {
+    background-color: #1e40af;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 40px;
+    border-radius: 8px;
+}
+
+footer p {
+    margin: 0;
     font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.cta-button:hover {
-    background-color: #00796b;
-    color: #ffffff;
+/* Animaciones */
+@keyframes fadeInTitle {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInContainer {
+    0% {
+        opacity: 0;
+        transform: translateY(50px); /* Contenedor sube desde abajo */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Contenedor se estabiliza */
+    }
 }

@@ -27,36 +27,42 @@ const Home = () => {
                         acabar con la pobreza, proteger el planeta y garantizar la paz y la prosperidad para todos en 2030.
                     </p>
                     <div className="ods-cards">
-                        <div className="ods-card">
-                            <img
-                                src="https://www.fundacionseres.org/BlogSeres/wp-content/uploads/2020/03/ods-12.png"
-                                alt="Producción y Consumo Responsables"
-                            />
-                            <h3>Producción y Consumo Responsables</h3>
-                            <p>
-                                Nuestro sistema digital ayuda a reducir el uso de papel, promoviendo prácticas sostenibles en el ámbito académico.
-                            </p>
-                        </div>
-                        <div className="ods-card">
-                            <img
-                                src="https://saludmentalandalucia.org/wp-content/uploads/2022/06/BANNER_ODS_4-1277X230.png"
-                                alt="Educación de Calidad"
-                            />
-                            <h3>Educación de Calidad</h3>
-                            <p>
-                                Facilitamos el acceso a información académica, optimizando procesos educativos y fortaleciendo la educación.
-                            </p>
-                        </div>
-                        <div className="ods-card">
-                            <img
-                                src="https://odsandaluciaextremadura.csic.es/wp-content/uploads/2021/09/banner13.png"
-                                alt="Acción por el Clima"
-                            />
-                            <h3>Acción por el Clima</h3>
-                            <p>
-                                Al reducir el impacto ambiental, contribuimos al objetivo de combatir el cambio climático globalmente.
-                            </p>
-                        </div>
+                        <a href="https://www.un.org/sustainabledevelopment/sustainable-consumption-production/" target="_blank" rel="noopener noreferrer">
+                            <div className="ods-card">
+                                <img
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/ODS_12.svg/1024px-ODS_12.svg.png"
+                                    alt="Producción y Consumo Responsables"
+                                />
+                                <h3>Producción y Consumo Responsables</h3>
+                                <p>
+                                    Nuestro sistema digital ayuda a reducir el uso de papel, promoviendo prácticas sostenibles en el ámbito académico.
+                                </p>
+                            </div>
+                        </a>
+                        <a href="https://www.un.org/sustainabledevelopment/quality-education/" target="_blank" rel="noopener noreferrer">
+                            <div className="ods-card">
+                                <img
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/ODS_4.svg/1024px-ODS_4.svg.png"
+                                    alt="Educación de Calidad"
+                                />
+                                <h3>Educación de Calidad</h3>
+                                <p>
+                                    Facilitamos el acceso a información académica, optimizando procesos educativos y fortaleciendo la educación.
+                                </p>
+                            </div>
+                        </a>
+                        <a href="https://www.un.org/sustainabledevelopment/climate-action/" target="_blank" rel="noopener noreferrer">
+                            <div className="ods-card">
+                                <img
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/ODS_13.svg/1024px-ODS_13.svg.png"
+                                    alt="Acción por el Clima"
+                                />
+                                <h3>Acción por el Clima</h3>
+                                <p>
+                                    Al reducir el impacto ambiental, contribuimos al objetivo de combatir el cambio climático globalmente.
+                                </p>
+                            </div>
+                        </a>
                     </div>
                 </section>
 
