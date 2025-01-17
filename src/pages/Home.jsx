@@ -29,10 +29,7 @@ const Home = () => {
                     <div className="ods-cards">
                         <a href="https://www.un.org/sustainabledevelopment/sustainable-consumption-production/" target="_blank" rel="noopener noreferrer">
                             <div className="ods-card">
-                                <img
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/ODS_12.svg/1024px-ODS_12.svg.png"
-                                    alt="Producción y Consumo Responsables"
-                                />
+                                <div className="ods-card-1"></div>
                                 <h3>Producción y Consumo Responsables</h3>
                                 <p>
                                     Nuestro sistema digital ayuda a reducir el uso de papel, promoviendo prácticas sostenibles en el ámbito académico.
@@ -41,10 +38,7 @@ const Home = () => {
                         </a>
                         <a href="https://www.un.org/sustainabledevelopment/quality-education/" target="_blank" rel="noopener noreferrer">
                             <div className="ods-card">
-                                <img
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/ODS_4.svg/1024px-ODS_4.svg.png"
-                                    alt="Educación de Calidad"
-                                />
+                                <div className="ods-card-2"></div>
                                 <h3>Educación de Calidad</h3>
                                 <p>
                                     Facilitamos el acceso a información académica, optimizando procesos educativos y fortaleciendo la educación.
@@ -53,10 +47,7 @@ const Home = () => {
                         </a>
                         <a href="https://www.un.org/sustainabledevelopment/climate-action/" target="_blank" rel="noopener noreferrer">
                             <div className="ods-card">
-                                <img
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/ODS_13.svg/1024px-ODS_13.svg.png"
-                                    alt="Acción por el Clima"
-                                />
+                                <div className="ods-card-3"></div>
                                 <h3>Acción por el Clima</h3>
                                 <p>
                                     Al reducir el impacto ambiental, contribuimos al objetivo de combatir el cambio climático globalmente.

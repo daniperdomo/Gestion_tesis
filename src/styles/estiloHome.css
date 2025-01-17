@@ -1,7 +1,7 @@
 /* Estilos Generales */
 html, body {
-    height: 100%;          /* Asegura que el cuerpo ocupe el 100% de la altura de la ventana */
-    overflow: auto;        /* Permite el desplazamiento vertical */
+    height: 100%;
+    overflow: auto;
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
@@ -10,25 +10,25 @@ html, body {
 }
 
 .home-container {
-    min-height: 100vh;      /* Asegura que el contenedor tenga al menos la altura de la pantalla */
+    min-height: 100vh;
     margin-top: 50px;
-    background-image: url('C:\Users\Emilio\Gestion_tesis\src\assets\images\imagenini.jpg');
+    background-image: url('src\assets\images\imagenini.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     padding: 40px;
-    animation: fadeInContainer 2s ease-out forwards; /* Añadida animación */
+    animation: fadeInContainer 2s ease-out forwards;
 }
 
 /* Hero Section */
 .hero-section {
-    background-color: rgba(30, 64, 175, 0.8); /* Azul con opacidad */
+    background-color: rgba(30, 64, 175, 0.8);
     color: white;
     text-align: center;
     padding: 100px 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    animation: fadeInTitle 2s ease-out forwards; /* También mantiene el efecto del título */
+    animation: fadeInTitle 2s ease-out forwards;
 }
 
 .hero-title {
@@ -67,7 +67,7 @@ html, body {
 /* ODS Cards */
 .ods-cards {
     display: flex;
-    justify-content: center; /* Centrado de las tarjetas */
+    justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
     margin-top: 20px;
@@ -78,41 +78,62 @@ html, body {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 300px; /* Tamaño fijo de la tarjeta */
-    height: 350px; /* Altura fija para igualar las tarjetas */
+    max-width: 320px;
+    height: 380px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease; /* Añadido para la transición */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
     cursor: pointer;
     text-decoration: none;
     color: inherit;
 }
 
-.ods-card img {
-    max-width: 100%;
-    height: 150px; /* Altura fija para las imágenes */
-    object-fit: cover;
+/* Fondo con imagen para cada card */
+.ods-card-1 {
+    background-image: url('src\assets\images\produccion-responsable.png');
+    background-size: contain;
+    background-position: center;
+    height: 250px; /* Aumento de la altura de la imagen */
     border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.ods-card-2 {
+    background-image: url('src\assets\images\download.png');
+    background-size: contain;
+    background-position: center;
+    height: 250px; /* Aumento de la altura de la imagen */
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.ods-card-3 {
+    background-image: url('src\assets\images\accion_por_clima.png');
+    background-size: contain;
+    background-position: center;
+    height: 250px; /* Aumento de la altura de la imagen */
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
 .ods-card h3 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     margin-top: 15px;
 }
 
 .ods-card p {
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 10px;
-    flex-grow: 1; /* Hace que el contenido se ajuste dentro de la tarjeta */
+    flex-grow: 1;
 }
 
 .ods-card:hover {
-    transform: translateY(-10px); /* Elevación de la tarjeta */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Sombra más profunda */
-    opacity: 0.9; /* Leve disminución de opacidad */
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0.9;
 }
 
 .ods-card a {
@@ -173,10 +194,10 @@ footer p {
 @keyframes fadeInContainer {
     0% {
         opacity: 0;
-        transform: translateY(50px); /* Contenedor sube desde abajo */
+        transform: translateY(50px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0); /* Contenedor se estabiliza */
+        transform: translateY(0);
     }
 }
